@@ -6,9 +6,11 @@
 
 <table>
 @foreach($rows as $row)
-<tr><td><a href="{{route('show', $row->id)}}">{{$row->question}}</a></td>
-    <td>{{$row->counter}}</td>
-<td>{{$row->answer}}</td>
+<tr>
+    <td class="col-md-5"><a href="{{route('show', $row->id)}}">{{$row->question}}</a></td>
+    <td class="col-md-1">{{$row->counter}}</td>
+
+    <td class="col-md-5">{{$row->answer}}</td>
 </tr>
 
 

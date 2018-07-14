@@ -59,6 +59,10 @@ class memriseController extends Controller
 
         $ile = $this->ile;
         $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id) ->min('id');
+
+        if (!isset($next)) {
+            $next = Question::where('counter', '<', $this->ile)->where('id', '<', $id) ->min('id');
+        };
         //dd($next);
         //$next2 = Question::all()->where('counter', '<', $ile)->random()->id;
         //dd($next2);

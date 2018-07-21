@@ -6,7 +6,7 @@
     <div class="col-md-12"><h3>Edytuj pytanie</h3></div>
 <div class="col-md-5">
 <div class="form-group">
-<form action="/edit/{{$question->id}}" method="post">
+<form action="{{route('edit', $question->id)}}" method="post">
     {{csrf_field()}}
     {{method_field('patch')}}
     <label for="question">Pytanie (po polsku)</label>

@@ -89,8 +89,9 @@ class memriseController extends Controller
     public function edit($id)
     {
         $question = Question::find($id);
+        $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id) ->min('id');
 
-        return view('layouts.edit', compact('question'));
+        return view('layouts.edit', compact('question', 'next'));
     }
 
     public function start()
@@ -110,7 +111,8 @@ class memriseController extends Controller
     {
         Question::create([
             'question' => request('question'),
-            'answer' => request('answer')
+            'answer' => request('answer'),
+            'zdanie' => request('zdanie')
         ]);
         session()->flash('message', 'Dodano do bazy');
         return back();
@@ -120,7 +122,8 @@ class memriseController extends Controller
     {
         Question::find($id)->update([
             'question' =>request('question'),
-            'answer' =>request('answer')
+            'answer' =>request('answer'),
+            'zdanie' =>request('zdanie')
         ]);
 
         session()->flash('message', 'Zedytowano');

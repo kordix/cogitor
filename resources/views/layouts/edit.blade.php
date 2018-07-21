@@ -13,9 +13,16 @@
 <input type="text" name="question" class="form-control" value="{{$question->question}}">
 <label for="answer">Odpowiedź (po niemiecku) </label>
 <input type="text" name="answer" class="form-control" value="{{$question->answer}}">
-<button type="submit" class="btn btn-primary margintop">Dodaj!</button>
+<label for="zdanie">Zdanie</label>
+<select name="zdanie" id="">
+    <option value="0" >Nie</option>
+    <option value="1" @if($question->zdanie == 1 ) selected @else dupa @endif>Tak</option>
+</select>
+<button type="submit" class="btn btn-primary margintop">Zatwierdź</button>
+
 
 </form>
+<a href="{{route('edit', $next)}}"><button class="btn btn-success margintop pull-right">Next</button></a>
 
 </div>
 </div>

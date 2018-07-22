@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('main');
 
+Route::get('/testowe', function () {
+    return view('test');
+});
+
 Auth::routes();
 Route::get('/', 'memriseController@start');
 // Route::get('/home', 'HomeController@index')->name('home');
@@ -38,6 +42,8 @@ Route::delete('/delete/{question}', function (Question $question) {
     //return back();
 })->name('delete');
 Route::get('/list', 'memriseController@list')->name('list');
+Route::get('/listzdania', 'memriseController@listzdania')->name('listzdania');
 Route::patch('/setcounter', 'memriseController@setcounter')->name('setcounter');
 Route::patch('/setcounterquestion/{id}', 'memriseController@setcounterquestion')->name('counterquestion');
 Route::patch('/mamracje/{id}', 'memriseController@mamracje')->name('mamracje');
+Route::patch('/setlanguage', 'memriseController@setlanguage')->name('setlanguage');

@@ -12,6 +12,28 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+    <style>
+        .ikonaspain{
+            background:url("{{asset('images/spain.png')}}");
+            background-size:40px 30px;
+            width:40px;
+            height:30px;
+            margin:10px;
+        }
+
+        .ikonagerman{
+            background:url("{{asset('images/germany.png')}}");
+            background-size:40px 30px;
+            width:40px;
+            height:30px;
+            margin:10px;
+        }
+
+
+    </style>
+
 </head>
 <body>
     <div id="app">
@@ -27,25 +49,34 @@
                         <span class="icon-bar"></span>
                     </button>
 
+
+
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
                         MemriseAppka
                     </a>
                 </div>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <div class="navbar" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a class="navbar-brand" href="{{ url('/') }}">Zacznij</a></li>
-
                         <li><a class="navbar-brand" href="{{ url('/list') }}">Lista</a></li>
-
+                        <li><a class="navbar-brand" href="{{ url('/listzdania') }}">Zdania</a></li>
                         <li><a class="navbar-brand" href="{{ url('/create') }}">Dodaj</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-
+                        <li>
+                            {{-- <img src="{{asset('images/germany.png')}}" class="ikona" alt=""> --}}
+                            <form action="{{route('setlanguage')}}" method="POST">{{csrf_field()}}{{method_field('patch')}}
+                                <input type="hidden" name="jezyk" value="DE"><button class="ikona ikonagerman" id="DE" type="submit" ></button></form>
+                        </li>
+                        <li>
+                            <form action="{{route('setlanguage')}}" method="POST">{{csrf_field()}}{{method_field('patch')}}
+                                <input type="hidden" name="jezyk" value="SP"><button class="ikona ikonaspain"id="SP" type="submit" ></button></form>
+                        </li>
                         <li><a>
                             <form action="{{route('setcounter')}}" method="POST">
                             {{csrf_field()}}
@@ -78,6 +109,7 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+                                    <li>test</li>
                                 </ul>
                             </li>
                         @endguest
@@ -95,5 +127,14 @@
 
     <!-- Scripts -->
     {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
+    <script>
+    let ikony = document.getElementsByClassName('ikona');
+    for(var i=0;ikony.length;i++){
+        if(ikony[i].id == "{{$currentlanguage}}"){
+            ikony[i].classList.add('ikona-active')
+        }
+    }
+
+    </script>
 </body>
 </html>

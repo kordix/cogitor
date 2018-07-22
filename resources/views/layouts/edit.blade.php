@@ -18,6 +18,10 @@
     <option value="0" >Nie</option>
     <option value="1" @if($question->zdanie == 1 ) selected @else dupa @endif>Tak</option>
 </select>
+<select name="jezyk" id="">
+    <option value="0">DE</option>
+    <option value="1">SP</option>
+</select>
 <button type="submit" class="btn btn-primary margintop">Zatwierdź</button>
 
 

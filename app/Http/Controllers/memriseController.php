@@ -25,7 +25,8 @@ class memriseController extends Controller
         $question = Question::find($id);
         $ile=$this->ile;
         $operator=$this->operator;
-        $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id)->min('id');
+        $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id)->where('language', '=', $this->currentlanguage)->min('id');
+        // dd($next);
 
         // dd($next);
         $previous = Question::where('counter', '<', $this->ile)->where('id', '<', $id) ->max('id');
@@ -63,6 +64,7 @@ class memriseController extends Controller
 
         $ile = $this->ile;
         $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id) ->min('id');
+
 
         if (!isset($next)) {
             $next = Question::where('counter', '<', $this->ile)->where('id', '<', $id) ->min('id');

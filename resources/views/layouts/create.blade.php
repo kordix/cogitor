@@ -18,8 +18,8 @@
 </select>
 <label for="zdanie">Język</label>
 <select name="jezyk" id="">
-    <option value="0" >DE</option>
-    <option value="1" @if($currentlanguage == 'SP') selected @endif>SP</option>
+    <option value="DE" >DE</option>
+    <option value="SP" @if($currentlanguage == 'SP') selected @endif>SP</option>
 </select>
 <button type="submit" class="btn btn-primary pull-right" style="margin-top:10px">Dodaj!</button>
 

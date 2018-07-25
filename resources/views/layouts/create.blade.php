@@ -8,13 +8,13 @@
 <form action="{{route('store')}}" method="post">
     {{csrf_field()}}
     <label for="question">Pytanie (po polsku)</label>
-<input type="text" name="question" class="form-control">
+<input type="text" name="question" class="form-control" required>
 <label for="answer">Odpowiedź (po   @if($currentlanguage == 'SP') hiszpańsku @else niemiecku @endif ) </label>
-<input type="text" name="answer" class="form-control">
+<input type="text" name="answer" class="form-control" required>
 <label for="zdanie">Zdanie:</label>
 <select name="zdanie" id="">
     <option value="0">Nie</option>
-    <option value="1">Tak</option>
+    <option value="1" @if($sentencesetting == 1) selected @endif>Tak</option>
 </select>
 <label for="zdanie">Język</label>
 <select name="jezyk" id="">

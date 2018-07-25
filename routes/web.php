@@ -47,3 +47,4 @@ Route::patch('/setcounter', 'memriseController@setcounter')->name('setcounter');
 Route::patch('/setcounterquestion/{id}', 'memriseController@setcounterquestion')->name('counterquestion');
 Route::patch('/mamracje/{id}', 'memriseController@mamracje')->name('mamracje');
 Route::patch('/setlanguage', 'memriseController@setlanguage')->name('setlanguage');
+Route::patch('/setsentences', 'memriseController@setsentences')->name('setsentences');

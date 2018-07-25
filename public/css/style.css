@@ -9,3 +9,11 @@
 .ikona-active {
     box-shadow:0px 0px 3px red;
 }
+
+.glow2 {
+    box-shadow:0px 0px 3px red;
+}
+
+.glow:hover {
+    box-shadow:0px 0px 3px red;
+}

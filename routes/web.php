@@ -14,6 +14,7 @@ use App\Setting;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 })->name('main');
@@ -48,3 +49,8 @@ Route::patch('/setcounterquestion/{id}', 'memriseController@setcounterquestion')
 Route::patch('/mamracje/{id}', 'memriseController@mamracje')->name('mamracje');
 Route::patch('/setlanguage', 'memriseController@setlanguage')->name('setlanguage');
 Route::patch('/setsentences', 'memriseController@setsentences')->name('setsentences');
+Route::get('/listen', 'memriseController@listen')->name('listen');
+Route::get('/listen/show/{id}', 'ListenController@show')->name('listenshow');
+Route::get('/listen/create', 'ListenController@create')->name('listencreate');
+Route::post('/listenstore', 'ListenController@store')->name('listenstore');
+Route::get('/listen/start', 'ListenController@start')->name('listenstart');

@@ -279,4 +279,10 @@ class memriseController extends Controller
 
         return back();
     }
+
+    public function listen()
+    {
+        $currentlanguage = $this->currentlanguage;
+        return view('layouts.listen', compact('currentlanguage'));
+    }
 }

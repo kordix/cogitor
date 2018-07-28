@@ -8,8 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Memrise Appka</title>
-
+    <title>Fiszki słuchowe</title>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -52,31 +51,21 @@
 
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ route('listenstart') }}">
-                        MemriseAppka
+                    <a class="navbar-brand"  href="{{ url('/') }}">
+                        <span style="text-shadow:0px 0px 1px #56A5EC;font-weight:500"> Fiszki Słuchowe</span>
                     </a>
                 </div>
 
                 <div class="navbar" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a class="navbar-brand" href="{{ url('/') }}">Zacznij</a></li>
-                        <li><a class="navbar-brand" href="{{ url('/list') }}">Lista</a></li>
-                        <li><a class="navbar-brand" href="{{ url('/listzdania') }}">Zdania</a></li>
-                        <li><a class="navbar-brand" href="{{ url('/create') }}">Dodaj</a></li>
+                        <li><a class="navbar-brand" href="{{ route('listenstart') }}">Zacznij</a></li>
+                        <li><a class="navbar-brand" href="{{ route('listencreate') }}">Dodaj</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            {{-- <img src="{{asset('images/germany.png')}}" class="ikona" alt=""> --}}
-                            <form action="{{route('setlanguage')}}" method="POST">{{csrf_field()}}{{method_field('patch')}}
-                                <input type="hidden" name="jezyk" value="DE"><button class="ikona ikonagerman" id="DE" type="submit" ></button></form>
-                        </li>
-                        <li>
-                            <form action="{{route('setlanguage')}}" method="POST">{{csrf_field()}}{{method_field('patch')}}
-                                <input type="hidden" name="jezyk" value="SP"><button class="ikona ikonaspain"id="SP" type="submit" ></button></form>
-                        </li>
+                    
                         <li><a>
                             <form action="{{route('setcounter')}}" method="POST">
                             {{csrf_field()}}

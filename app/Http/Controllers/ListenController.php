@@ -73,7 +73,7 @@ class ListenController extends Controller
         $currentlanguage = $this->currentlanguage;
         $ile=$this->ile;
         $operator=$this->operator;
-        $next = Listen::where('id', '>', $id)->min('id');
+        $next = Listen::where('id', '>', $id)->where('counter', '<', $this->ile)->min('id');
         $question = Listen::find($id);
         $content = html_entity_decode($question->content);
         $content = str_replace('\'', '', $question->content);
@@ -103,6 +103,18 @@ class ListenController extends Controller
      * @param  \App\Listen  $listen
      * @return \Illuminate\Http\Response
      */
+
+    public function setcounterquestion($id, Request $request)
+    {
+        Listen::find($id)->update([
+             'counter'=> request('counter')
+         ]);
+
+        $next = Listen::where('counter', '<', $this->ile)->where('id', '>', $id) ->min('id');
+        return redirect()->route('listenshow', ['id'=>$next]);
+    }
+
+
     public function update(Request $request, Listen $listen)
     {
         //

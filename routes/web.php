@@ -46,6 +46,8 @@ Route::get('/list', 'memriseController@list')->name('list');
 Route::get('/listzdania', 'memriseController@listzdania')->name('listzdania');
 Route::patch('/setcounter', 'memriseController@setcounter')->name('setcounter');
 Route::patch('/setcounterquestion/{id}', 'memriseController@setcounterquestion')->name('counterquestion');
+Route::patch('/setcounterquestion/{id}', 'ListenController@setcounterquestion')->name('listencounterquestion');
+
 Route::patch('/mamracje/{id}', 'memriseController@mamracje')->name('mamracje');
 Route::patch('/setlanguage', 'memriseController@setlanguage')->name('setlanguage');
 Route::patch('/setsentences', 'memriseController@setsentences')->name('setsentences');

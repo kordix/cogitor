@@ -146,7 +146,6 @@ class memriseController extends Controller
         $currentlanguage = $this->currentlanguage;
         $question = Question::find($id);
         $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id)->min('id');
-
         return view('layouts.edit', compact('question', 'next', 'currentlanguage'));
     }
 

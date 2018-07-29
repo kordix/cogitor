@@ -50,7 +50,8 @@ class ListenController extends Controller
     public function store(Request $request)
     {
         Listen::create([
-            'content' => request('content')
+            'content' => request('content'),
+            'title' => request('title')
         ]);
         session()->flash('message', 'Dodano do bazy');
         return back();
@@ -79,9 +80,6 @@ class ListenController extends Controller
         $content = str_replace('\'', '', $question->content);
         $content2 = str_replace('Im', 'aim', $content);
 
-
-
-
         return view('layouts.listenshow', compact('question', 'currentlanguage', 'next', 'ile', 'operator', 'content2'));
     }
 
@@ -91,9 +89,12 @@ class ListenController extends Controller
      * @param  \App\Listen  $listen
      * @return \Illuminate\Http\Response
      */
-    public function edit(Listen $listen)
+    public function edit($id)
     {
-        //
+        $question = Listen::find($id);
+        $next = Listen::where('counter', '<', $this->ile)->where('id', '>', $id)->min('id');
+        return view('layouts.listenedit', compact('question', 'next'));
+        dd($next);
     }
 
     /**
@@ -115,9 +116,22 @@ class ListenController extends Controller
     }
 
 
-    public function update(Request $request, Listen $listen)
+    public function update($id, Request $request)
     {
-        //
+        Listen::find($id)->update([
+            'content' =>request('content'),
+            'title' =>request('title')
+        ]);
+
+        session()->flash('message', 'Zedytowano');
+
+        return back();
+    }
+
+    public function list()
+    {
+        $rows = Listen::all();
+        return view('layouts.listenlist', compact('rows'));
     }
 
     /**

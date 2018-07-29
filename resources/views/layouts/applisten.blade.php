@@ -61,6 +61,7 @@
                     <ul class="nav navbar-nav">
                         <li><a class="navbar-brand" href="{{ route('listenstart') }}">Zacznij</a></li>
                         <li><a class="navbar-brand" href="{{ route('listencreate') }}">Dodaj</a></li>
+                        <li><a class="navbar-brand" href="{{ route('listenlist') }}">Lista</a></li>                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -118,14 +119,6 @@
     @yield('scripts')
     {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 
-    <script>
-    let ikony = document.getElementsByClassName('ikona');
-    for(var i=0;ikony.length;i++){
-        if(ikony[i].id == "{{$currentlanguage}}"){
-            ikony[i].classList.add('ikona-active')
-        }
-    }
 
-    </script>
 </body>
 </html>

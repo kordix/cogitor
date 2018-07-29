@@ -1,6 +1,7 @@
 <?php
 
 use App\Question;
+use App\Listen;
 use App\Setting;
 
 /*
@@ -30,7 +31,10 @@ Route::get('/show/{id}', 'memriseController@show')->name('show');
 Route::post('/answer', 'memriseController@answer')->name('answer');
 Route::get('/create', 'memriseController@create')->name('create');
 Route::get('/edit/{id}', 'memriseController@edit')->name('edit');
+Route::get('listen/edit/{id}', 'ListenController@edit')->name('listenedit');
 Route::patch('/edit/{id}', 'memriseController@update')->name('edit');
+Route::patch('listen/edit/{id}', 'ListenController@update')->name('listenedit');
+
 Route::get('/random', 'memriseController@random');
 Route::post('/store', 'memriseController@store')->name('store');
 Route::get('/test', function () {
@@ -40,13 +44,20 @@ Route::get('/test', function () {
 Route::delete('/delete/{question}', function (Question $question) {
     $question->delete();
 
-    //return back();
+    return redirect()->back();
 })->name('delete');
+Route::delete('listen/delete/{question}', function (Listen $question) {
+    $question->delete();
+
+    return redirect()->back();
+})->name('listendelete');
 Route::get('/list', 'memriseController@list')->name('list');
+Route::get('/listenlist', 'ListenController@list')->name('listenlist');
+
 Route::get('/listzdania', 'memriseController@listzdania')->name('listzdania');
 Route::patch('/setcounter', 'memriseController@setcounter')->name('setcounter');
 Route::patch('/setcounterquestion/{id}', 'memriseController@setcounterquestion')->name('counterquestion');
-Route::patch('/setcounterquestion/{id}', 'ListenController@setcounterquestion')->name('listencounterquestion');
+Route::patch('/listen/setcounterquestion/{id}', 'ListenController@setcounterquestion')->name('listencounterquestion');
 
 Route::patch('/mamracje/{id}', 'memriseController@mamracje')->name('mamracje');
 Route::patch('/setlanguage', 'memriseController@setlanguage')->name('setlanguage');

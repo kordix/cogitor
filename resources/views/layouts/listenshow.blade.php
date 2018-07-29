@@ -6,7 +6,7 @@
 <div class="col-md-12">
     <div class="col-md-5">
         <h4>Fiszka słuchowa nr {{$question->id}} <span style="font-size:10px;align:right"> --Counter:{{$question->counter}}  </span></h4>
-        tu będą fiszki słuchowe
+        {{$question->title}}
         <input id="listen"  type='button' value='🔊 Play' />
         <a href="{{route('listenshow', $next)}}"><button class="btn btn-success">Next</button></a>
         <br><br>
@@ -19,6 +19,15 @@
             <label for="counter">*Ustaw counter pytania</label>
             <input name="counter" type="number" style="width:50px">
         </form>
+        <a href="{{route('listenedit',$question->id)}}"><button style="margin-bottom:5px" class="btn btn-info">Edytuj</button></a>
+        <form action="{{route('listendelete', $question->id)}}" method="POST">
+            {{csrf_field()}}
+        {{method_field('DELETE')}}
+
+        <button class="btn btn-danger" >Wywal</button>
+        <br>
+        </form>
+
     </div>
     <div class="col-md-5">
         <h3>Counterset: {{$operator}} {{$ile}}</h3>

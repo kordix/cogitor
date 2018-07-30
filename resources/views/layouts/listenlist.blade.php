@@ -11,10 +11,7 @@
 <tr>
     <td class="col-md-5">{{$row->title}}</td>
     <td class="col-md-1"><a href="{{route('listenshow', $row->id)}}">{{$row->id}}</a></td>
-
     <td class="col-md-1">{{$row->counter}}</td>
-
-
 </tr>
 
 

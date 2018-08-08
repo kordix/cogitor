@@ -46,11 +46,8 @@ Route::delete('/delete/{question}', function (Question $question) {
 
     return redirect()->back();
 })->name('delete');
-Route::delete('listen/delete/{question}', function (Listen $question) {
-    $question->delete();
+Route::delete('/listen/delete/{id}', 'ListenController@destroy')->name('listendelete');
 
-    return redirect()->back();
-})->name('listendelete');
 Route::get('/list', 'memriseController@list')->name('list');
 Route::get('/listenlist', 'ListenController@list')->name('listenlist');
 

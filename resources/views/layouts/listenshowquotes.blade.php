@@ -10,7 +10,7 @@
         <input id="listen"  type='button' value='🔊 Play' />
         <a href="{{route('listenshow', $next)}}"><button class="btn btn-success">Next</button></a>
         <br><br>
-        <div class="well" id="answer" style="display:none">{{$question->content}}</div>
+        <div class="well" id="answer" style="display:none">{{$zbigniew5}}</div>
         <button id="toggledisplaybutton" class="btn btn-default">Pokaż/ukryj odpowiedź</button>
         <br><br>
         <textarea class="form-control" style="height:120px" name="" id="" cols="30" rows="10"></textarea>
@@ -46,7 +46,7 @@
 
 @section('scripts')
 <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
-<script>document.getElementById('listen').addEventListener("click", function(){responsiveVoice.speak("{{ html_entity_decode($content2)}}")});</script>
+<script>document.getElementById('listen').addEventListener("click", function(){responsiveVoice.speak("{{$zbigniew5}}")});</script>
 {{-- <script>document.getElementById('listen').addEventListener("click", function(){responsiveVoice.speak({{$zbigniew2[0]->content}})});</script> --}}
 
 <script>

@@ -72,6 +72,13 @@ class ListenController extends Controller
     public function show($id)
     {
         $currentlanguage = $this->currentlanguage;
+        $zbigniew = file_get_contents('http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]');
+        $zbigniew2 = json_decode($zbigniew);
+        $zbigniew3 = $zbigniew2[0]->content;
+        $zbigniew4 = trim(strip_tags($zbigniew3));
+        $zbigniew5 = html_entity_decode($zbigniew4);
+        // dd($zbigniew5);
+        // dd($zbigniew2[0]->content);
         $ile=$this->ile;
         $operator=$this->operator;
         $next = Listen::where('id', '>', $id)->where('counter', '<', $this->ile)->min('id');
@@ -80,7 +87,7 @@ class ListenController extends Controller
         $content = str_replace('\'', '', $question->content);
         $content2 = str_replace('Im', 'aim', $content);
 
-        return view('layouts.listenshow', compact('question', 'currentlanguage', 'next', 'ile', 'operator', 'content2'));
+        return view('layouts.listenshowquotes', compact('question', 'currentlanguage', 'next', 'ile', 'operator', 'content2', 'zbigniew', 'zbigniew2', 'zbigniew5'));
     }
 
     /**
@@ -140,8 +147,11 @@ class ListenController extends Controller
      * @param  \App\Listen  $listen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Listen $listen)
+    public function destroy($id)
     {
-        //
+        $listen = Listen::find($id);
+        $listen->delete();
+        $next = Listen::where('counter', '<', $this->ile)->where('id', '>', $id) ->min('id');
+        return redirect()->route('listenshow', $next);
     }
 }

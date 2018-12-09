@@ -113,7 +113,9 @@
                                 </ul>
                             </li>
                         @endguest
+
                     </ul>
+
                 </div>
             </div>
         </nav>
@@ -129,6 +131,8 @@
     @yield('scripts')
     {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 
+
+    @guest @else
     <script>
     let ikony = document.getElementsByClassName('ikona');
     for(var i=0;ikony.length;i++){
@@ -138,5 +142,6 @@
     }
 
     </script>
+@endguest
 </body>
 </html>

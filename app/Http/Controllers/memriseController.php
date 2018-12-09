@@ -17,6 +17,7 @@ class memriseController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->ile=Setting::find(1)->counterset;
         $this->operator=Setting::find(1)->operator;
         $this->currentlanguage=Setting::find(1)->language;
@@ -143,6 +144,7 @@ class memriseController extends Controller
 
     public function edit($id)
     {
+        $this->middleware('auth');
         $currentlanguage = $this->currentlanguage;
         $question = Question::find($id);
         $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id)->min('id');
@@ -213,6 +215,8 @@ class memriseController extends Controller
 
     public function setcounter(Request $request)
     {
+        $this->middleware('auth');
+
         Setting::find(1)->update([
             'operator'=>request('operator'),
             'counterset'=>request('counterinput')
@@ -224,6 +228,8 @@ class memriseController extends Controller
 
     public function setcounterquestion($id, Request $request)
     {
+        $this->middleware('auth');
+
         Question::find($id)->update([
             'counter'=> request('counter')
         ]);
@@ -234,6 +240,8 @@ class memriseController extends Controller
 
     public function mamracje($id, Request $request)
     {
+        $this->middleware('auth');
+
         Question::find($id)->update(['counter'=> request('counter')]);
 
         session()->flash('message', 'Ok masz rację');

@@ -4,6 +4,11 @@
 @section('content')
 <div class="container">
 
+    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+        <button type="submit">Logout</button>
+        {{ csrf_field() }}
+    </form>
+
 <table>
 @foreach($rows as $row)
 <tr>

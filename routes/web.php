@@ -42,6 +42,7 @@ Route::get('/test', function () {
 });
 
 Route::delete('/delete/{question}', function (Question $question) {
+    $this->middleware('auth');
     $question->delete();
 
     return redirect()->back();

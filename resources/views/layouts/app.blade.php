@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php $currentlanguage = App\Setting::find(1)->language ?>
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">

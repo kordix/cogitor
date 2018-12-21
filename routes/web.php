@@ -3,6 +3,7 @@
 use App\Question;
 use App\Listen;
 use App\Setting;
+use App\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,13 @@ Route::get('/testowe', function () {
 });
 
 Auth::routes();
+Route::get('/createcategory', 'memriseController@createcategory')->name('createcategory');
+Route::get('/categories', 'memriseController@listcategories')->name('listc');
+
+Route::post('/storecategory', 'memriseController@storecategory')->name('storecategory');
+
+
+
 Route::get('/', 'memriseController@start');
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/show/{id}', 'memriseController@show')->name('show');
@@ -32,8 +40,11 @@ Route::post('/answer', 'memriseController@answer')->name('answer');
 Route::get('/create', 'memriseController@create')->name('create');
 Route::get('/edit/{id}', 'memriseController@edit')->name('edit');
 Route::get('listen/edit/{id}', 'ListenController@edit')->name('listenedit');
+Route::get('category/edit/{id}', 'memriseController@editc')->name('editc');
+
 Route::patch('/edit/{id}', 'memriseController@update')->name('edit');
 Route::patch('listen/edit/{id}', 'ListenController@update')->name('listenedit');
+Route::patch('category/edit/{id}', 'memriseController@updatec')->name('updatec');
 
 Route::get('/random', 'memriseController@random');
 Route::post('/store', 'memriseController@store')->name('store');
@@ -44,9 +55,19 @@ Route::get('/test', function () {
 Route::delete('/delete/{question}', function (Question $question) {
     $this->middleware('auth');
     $question->delete();
-
+    session()->flash('message', 'usunięto fiszke');
     return redirect()->back();
 })->name('delete');
+
+Route::delete('/deletec/{category}', function (Category $category) {
+    $this->middleware('auth');
+    $category->delete();
+    session()->flash('message', 'usunięto kategorię');
+    return redirect()->back();
+})->name('deletec');
+
+
+
 Route::delete('/listen/delete/{id}', 'ListenController@destroy')->name('listendelete');
 
 Route::get('/list', 'memriseController@list')->name('list');

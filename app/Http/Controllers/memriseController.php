@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Question;
+use App\Category;
 use App\Setting;
 
 use DB;
@@ -24,6 +25,33 @@ class memriseController extends Controller
         $this->sentencesetting=Setting::find(1)->sentences;
         session_start();
     }
+
+    public function createcategory()
+    {
+        return view('layouts.createcategory');
+    }
+
+    public function listcategories()
+    {
+        $categories = Category::all();
+        return view('layouts.listcategories', compact('categories'));
+    }
+
+    public function storecategory(Request $request)
+    {
+        Category::create([
+            'name' => request('name')
+        ]);
+        session()->flash('message', 'Dodano kategorię');
+        return back();
+    }
+
+    public function editc($id)
+    {
+        $category=Category::find($id);
+        return view('layouts.editcategory', compact('category'));
+    }
+
     public function show($id)
     {
         global $next;
@@ -138,17 +166,20 @@ class memriseController extends Controller
     {
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;
+        $categories = Category::all();
 
-        return view('layouts.create', compact('currentlanguage', 'sentencesetting'));
+        return view('layouts.create', compact('currentlanguage', 'sentencesetting', 'categories'));
     }
 
     public function edit($id)
     {
         $this->middleware('auth');
-        $currentlanguage = $this->currentlanguage;
+        $categories = Category::all();
         $question = Question::find($id);
+
+        $currentlanguage = $this->currentlanguage;
         $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id)->min('id');
-        return view('layouts.edit', compact('question', 'next', 'currentlanguage'));
+        return view('layouts.edit', compact('question', 'next', 'currentlanguage', 'categories'));
     }
 
     public function start()
@@ -174,7 +205,8 @@ class memriseController extends Controller
             'question' => request('question'),
             'answer' => request('answer'),
             'zdanie' => request('zdanie'),
-            'language' => request('jezyk')
+            'language' => request('jezyk'),
+            'category_id' => request('category_id')
         ]);
         session()->flash('message', 'Dodano do bazy');
         return back();
@@ -186,11 +218,24 @@ class memriseController extends Controller
             'question' =>request('question'),
             'answer' =>request('answer'),
             'zdanie' =>request('zdanie'),
-            'language' => request('jezyk')
+            'language' => request('jezyk'),
+            'category_id' => request('category_id')
         ]);
 
         session()->flash('message', 'Zedytowano');
 
+        $currentlanguage = $this->currentlanguage;
+        $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id)->min('id');
+        return redirect()->route('edit', $next);
+    }
+
+    public function updatec($id, Request $request)
+    {
+        Category::find($id)->update([
+            'name' =>request('name')
+        ]);
+
+        session()->flash('message', 'Zedytowano kategorię');
         return back();
     }
 

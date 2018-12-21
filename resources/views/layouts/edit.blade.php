@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <div class="container">
     <div class="col-md-12"><h3>Edytuj pytanie</h3></div>
 <div class="col-md-5">
@@ -21,6 +22,11 @@
 <select name="jezyk" id="">
     <option value="DE">DE</option>
     <option value="SP">SP</option>
+</select>
+<select name="category_id" id="">
+    @foreach($categories as $category)
+        <option value="{{$category->id}}" @if($category->id==$question->category_id) selected @endif>{{$category->name}}</option>
+    @endforeach
 </select>
 <button type="submit" class="btn btn-primary margintop">Zatwierdź</button>
 

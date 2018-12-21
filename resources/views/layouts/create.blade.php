@@ -21,6 +21,11 @@
     <option value="DE" >DE</option>
     <option value="SP" @if($currentlanguage == 'SP') selected @endif>SP</option>
 </select>
+<select name="category_id" id="">
+    @foreach($categories as $category)
+        <option value="{{$category->id}}">{{$category->name}}</option>
+    @endforeach
+</select>
 <button type="submit" class="btn btn-primary pull-right" style="margin-top:10px">Dodaj!</button>
 
 </form>

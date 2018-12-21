@@ -244,10 +244,11 @@ class memriseController extends Controller
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;
         $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', 0)->get();
+        $categories = Category::all();
         // $rows = Question::where('completed', 0)->get();
 
 
-        return view('layouts.list', compact('rows', 'currentlanguage'));
+        return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
     }
 
     public function listzdania()

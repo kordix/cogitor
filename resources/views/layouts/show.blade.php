@@ -19,6 +19,7 @@
     <div class="form-group">
 <form action=" {{route('answer')}}" method="post" autofocus>
 {{csrf_field()}}
+<p>Kategoria: {{$categories->find($question->category_id)['name']}}</p>
 <label for="question">Przetłumacz:  {{$question->question}}</label><span style="float:right">id:{{$question->id}} counter:{{$question->counter}}</span>
 
 {{-- <label for="answer">Twoja odpowiedź</label> --}}

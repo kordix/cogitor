@@ -55,6 +55,7 @@ class memriseController extends Controller
     public function show($id)
     {
         global $next;
+        $categories=Category::all();
         // dd($this->currentlanguage);
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;
@@ -86,7 +87,7 @@ class memriseController extends Controller
         // dd($next);
         $previous = Question::where('counter', '<', $this->ile)->where('id', '<', $id) ->max('id');
 
-        return view('layouts.show', compact('question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
+        return view('layouts.show', compact('categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
     }
 
     public function random()
@@ -254,8 +255,9 @@ class memriseController extends Controller
     public function listzdania()
     {
         $currentlanguage = $this->currentlanguage;
+        $categories = Category::all();
         $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', 1)->get();
-        return view('layouts.list', compact('rows', 'currentlanguage'));
+        return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
     }
 
 

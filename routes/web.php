@@ -81,6 +81,8 @@ Route::patch('/listen/setcounterquestion/{id}', 'ListenController@setcounterques
 Route::patch('/mamracje/{id}', 'memriseController@mamracje')->name('mamracje');
 Route::patch('/setlanguage', 'memriseController@setlanguage')->name('setlanguage');
 Route::patch('/setsentences', 'memriseController@setsentences')->name('setsentences');
+Route::patch('/setcategory', 'memriseController@setcategory')->name('setcategory');
+
 Route::get('/listen', 'memriseController@listen')->name('listen');
 Route::get('/listen/show/{id}', 'ListenController@show')->name('listenshow');
 Route::get('/listen/create', 'ListenController@create')->name('listencreate');

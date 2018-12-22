@@ -79,14 +79,23 @@ class memriseController extends Controller
         }
 
         if (!isset($next)) {
-            session()->flash('message', 'wyczerpały się słówka, zmień counter albo dodaj nowe');
-            return redirect()->route('create');
+            if ($categorysetting<>0) {
+                session()->flash('message', 'wyczerpały się słówka w danej kategorii, zmień counter,kategorię albo dodaj nowe');
+                return redirect()->route('create');
+            } else {
+                session()->flash('message', 'wyczerpały się słówka, zmień counter albo dodaj nowe');
+                return redirect()->route('create');
+            }
         }
 
         $_SESSION['next']=$next;
-        $previous = Question::where('counter', '<', $this->ile)->where('id', '<', $id) ->max('id');
+        if ($categorysetting<>0) {
+            $previous = Question::where('counter', '<', $this->ile)->where('id', '<', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', $sentencesetting)->where('category_id', '=', $categorysetting)->max('id');
+        } else {
+            $previous = Question::where('counter', '<', $this->ile)->where('id', '<', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', $sentencesetting)->max('id');
+        }
 
-        return view('layouts.show', compact('categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
+        return view('layouts.show', compact('categorysetting', 'categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
     }
 
     public function random()
@@ -307,6 +316,14 @@ class memriseController extends Controller
 
         session()->flash('message', 'Zedytowano filtrowanie zdań');
 
+        return back();
+    }
+
+    public function setcategory(Request $request)
+    {
+        Setting::find(1)->update([
+            'category' => request('category')
+        ]);
         return back();
     }
 

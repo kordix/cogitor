@@ -332,4 +332,13 @@ class memriseController extends Controller
         $currentlanguage = $this->currentlanguage;
         return view('layouts.listen', compact('currentlanguage'));
     }
+
+    public function delete(Question $question)
+    {
+        $this->middleware('auth');
+        $next = $_SESSION['next'];
+        $question->delete();
+        session()->flash('message', 'usunięto fiszke');
+        return redirect()->route('show', $next);
+    }
 }

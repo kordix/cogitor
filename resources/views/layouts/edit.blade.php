@@ -32,6 +32,7 @@
 
 
 </form>
+<a href="{{route('show', $question->id)}}"><button class="btn btn-info margintop pull-right">Przejdź</button></a>
 <a href="{{route('edit', $next)}}"><button class="btn btn-success margintop pull-right">Next</button></a>
 
 </div>

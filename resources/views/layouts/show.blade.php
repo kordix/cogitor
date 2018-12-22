@@ -70,7 +70,7 @@
 
 
 <div class="col-md-12">
-    <form action="/delete/{{$question->id}}" method="POST">
+    <form action="{{route('delete',$question->id)}}" method="POST">
         {{csrf_field()}}
     {{method_field('DELETE')}}
 

@@ -52,12 +52,14 @@ Route::get('/test', function () {
     dd(Setting::find(1)->counterset);
 });
 
-Route::delete('/delete/{question}', function (Question $question) {
-    $this->middleware('auth');
-    $question->delete();
-    session()->flash('message', 'usunięto fiszke');
-    return redirect()->back();
-})->name('delete');
+// Route::delete('/delete/{question}', function (Question $question) {
+//     $this->middleware('auth');
+//     $question->delete();
+//     session()->flash('message', 'usunięto fiszke');
+//     return redirect()->route('show', $_SESSION['next']);
+// })->name('delete');
+
+Route::delete('/delete/{question}', 'memriseController@delete')->name('delete');
 
 Route::delete('/deletec/{category}', function (Category $category) {
     $this->middleware('auth');

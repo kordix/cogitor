@@ -122,7 +122,7 @@
         </nav>
         <div class="container">
         @if($flash=session('message'))
-            <div class="alert alert-success">{{$flash}}</div>
+            <div class="col-md-5 alert alert-success">{{$flash}}</div>
         @endif
         </div>
         @yield('content')

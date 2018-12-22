@@ -23,6 +23,8 @@ class memriseController extends Controller
         $this->operator=Setting::find(1)->operator;
         $this->currentlanguage=Setting::find(1)->language;
         $this->sentencesetting=Setting::find(1)->sentences;
+        $this->categorysetting=Setting::find(1)->category;
+
         session_start();
     }
 
@@ -59,32 +61,29 @@ class memriseController extends Controller
         // dd($this->currentlanguage);
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;
-
+        $categorysetting = $this->categorysetting;
         $question = Question::find($id);
         $ile=$this->ile;
         $operator=$this->operator;
-        if ($sentencesetting == 1) {
-            $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', 1)->min('id');
-            if (!isset($next)) {
-                $next = Question::where('counter', '<', $this->ile)->where('id', '<', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', 1)->min('id');
-                if (!isset($next)) {
-                    session()->flash('message', 'wyczerpały się słówka, zmień counter albo dodaj nowe');
-                    return redirect()->route('create');
-                }
-            }
+
+        if ($categorysetting<>0) {
+            $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', $sentencesetting)->where('category_id', '=', $categorysetting)->min('id');
         } else {
-            $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', 0)->min('id');
-            if (!isset($next)) {
-                $next = Question::where('counter', '<', $this->ile)->where('id', '<', $id)->where('zdanie', '=', 0)->min('id');
-                if (!isset($next)) {
-                    session()->flash('message', 'wyczerpały się słówka, zmień counter albo dodaj nowe');
-                    return redirect()->route('create');
-                }
-            };
+            $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', $sentencesetting)->min('id');
         }
-        // dd($next);
+        if (!isset($next) && $categorysetting<>0) {
+            $next = Question::where('counter', '<', $this->ile)->where('id', '<', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', $sentencesetting)->where('category_id', '=', $categorysetting)->min('id');
+        }
+        if (!isset($next)) {
+            $next = Question::where('counter', '<', $this->ile)->where('id', '<', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', $sentencesetting)->min('id');
+        }
+
+        if (!isset($next)) {
+            session()->flash('message', 'wyczerpały się słówka, zmień counter albo dodaj nowe');
+            return redirect()->route('create');
+        }
+
         $_SESSION['next']=$next;
-        // dd($next);
         $previous = Question::where('counter', '<', $this->ile)->where('id', '<', $id) ->max('id');
 
         return view('layouts.show', compact('categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
@@ -98,7 +97,7 @@ class memriseController extends Controller
 
     public function answer(Request $request)
     {
-        session()->start();
+        // session()->start();
         $question = $request->input('question');
         $useranswer = $request->input('useranswer');
         $answer = $request->input('answer');
@@ -123,31 +122,7 @@ class memriseController extends Controller
         $ile = $this->ile;
         // $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id) ->min('id');
 
-
-        if ($sentencesetting == 1) {
-            $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', 1)->min('id');
-            if (!isset($next)) {
-                $next = Question::where('counter', '<', $this->ile)->where('id', '<', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', 1)->min('id');
-                if (!isset($next)) {
-                    session()->flash('message', 'wyczerpały się słówka, zmień counter albo dodaj nowe');
-                    return redirect()->route('create');
-                }
-            }
-        } else {
-            $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', 0)->min('id');
-            if (!isset($next)) {
-                $next = Question::where('counter', '<', $this->ile)->where('id', '<', $id)->where('zdanie', '=', 0)->min('id');
-                if (!isset($next)) {
-                    session()->flash('message', 'wyczerpały się słówka, zmień counter albo dodaj nowe');
-                    return redirect()->route('create');
-                }
-            };
-        }
-
-        $_SESSION['next']=$next;
-        //dd($next);
-        //$next2 = Question::all()->where('counter', '<', $ile)->random()->id;
-        //dd($next2);
+        $next = $_SESSION['next'];
 
         $previous = Question::where('counter', '<', $this->ile)->where('id', '<', $id) ->min('id');
         // $next = Question::where('id', '>', $id) ->min('id');

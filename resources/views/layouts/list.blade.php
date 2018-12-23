@@ -10,9 +10,11 @@
                 {{ csrf_field() }}
             </form>
         </div>
-        
+
 <a href="{{route('list','category_id')}}"><button class="btn btn-primary">Ułóż kategoriami</button></a>
 <a href="{{route('list','rodzajnik')}}"><button class="btn btn-primary">Ułóż rodzajnikami</button></a>
+<a href="{{route('list','id')}}"><button class="btn btn-primary">Id</button></a>
+
 
 
 </div>

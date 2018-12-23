@@ -232,7 +232,7 @@ class memriseController extends Controller
     {
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;
-        $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', 0)->orderBy($param, 'desc')->orderBy('counter')->get();
+        $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', $this->sentencesetting)->orderBy($param, 'desc')->orderBy('counter')->get();
         $categories = Category::all();
         // $rows = Question::where('completed', 0)->get();
 
@@ -240,11 +240,11 @@ class memriseController extends Controller
         return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
     }
 
-    public function listzdania()
+    public function listzdania($param = 'id')
     {
         $currentlanguage = $this->currentlanguage;
         $categories = Category::all();
-        $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', 1)->get();
+        $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', 1)->orderBy($param)->get();
         return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
     }
 

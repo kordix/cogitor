@@ -76,6 +76,7 @@ Route::get('/list/{param}', 'memriseController@list')->name('list');
 Route::get('/listenlist', 'ListenController@list')->name('listenlist');
 
 Route::get('/listzdania', 'memriseController@listzdania')->name('listzdania');
+Route::get('/listzdania/{param}', 'memriseController@listzdania')->name('listzdania');
 Route::patch('/setcounter', 'memriseController@setcounter')->name('setcounter');
 Route::patch('/setcounterquestion/{id}', 'memriseController@setcounterquestion')->name('counterquestion');
 Route::patch('/listen/setcounterquestion/{id}', 'ListenController@setcounterquestion')->name('listencounterquestion');

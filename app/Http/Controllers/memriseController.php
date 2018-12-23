@@ -228,11 +228,11 @@ class memriseController extends Controller
         return back();
     }
 
-    public function list()
+    public function list($param = 'category_id')
     {
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;
-        $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', 0)->get();
+        $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', 0)->orderBy($param)->orderBy('counter')->get();
         $categories = Category::all();
         // $rows = Question::where('completed', 0)->get();
 
@@ -328,6 +328,7 @@ class memriseController extends Controller
         Setting::find(1)->update([
             'category' => request('category')
         ]);
+        session()->flash('message', 'ustawiono aktualną kategorię');
         return back();
     }
 

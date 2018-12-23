@@ -24,7 +24,7 @@
     <div class="col-md-9">
     <form action="{{route('setcategory')}}" method="POST">{{csrf_field()}}{{method_field('PATCH')}}
     <select class="form-control"  name="category" id="">
-        <option value="0" @if($categorysetting==0) selected @endif) >Bez kategorii</option>
+        <option value="1" @if($categorysetting==0) selected @endif) >Bez kategorii</option>
         @foreach($categories as $category) <option value="{{$category->id}}" @if($categorysetting==$category->id) selected @endif)>{{$category->name}}</option> @endforeach
     </select>
 

@@ -71,8 +71,8 @@ Route::delete('/deletec/{category}', function (Category $category) {
 
 
 Route::delete('/listen/delete/{id}', 'ListenController@destroy')->name('listendelete');
-
 Route::get('/list', 'memriseController@list')->name('list');
+Route::get('/list/{param}', 'memriseController@list')->name('list');
 Route::get('/listenlist', 'ListenController@list')->name('listenlist');
 
 Route::get('/listzdania', 'memriseController@listzdania')->name('listzdania');

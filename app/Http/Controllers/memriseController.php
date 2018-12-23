@@ -228,7 +228,7 @@ class memriseController extends Controller
         return back();
     }
 
-    public function list($param = 'category_id')
+    public function list($param = 'id')
     {
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;

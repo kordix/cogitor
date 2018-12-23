@@ -14,6 +14,8 @@
 <a href="{{route('list','category_id')}}"><button class="btn btn-primary">Ułóż kategoriami</button></a>
 <a href="{{route('list','rodzajnik')}}"><button class="btn btn-primary">Ułóż rodzajnikami</button></a>
 <a href="{{route('list','id')}}"><button class="btn btn-primary">Id</button></a>
+<a href="{{route('list','answer')}}"><button class="btn btn-primary">Alfabetycznie</button></a>
+
 
 
 
@@ -26,7 +28,7 @@
 
     <td class="col-md-1">{{$row->counter}}</td>
 
-    <td class="col-md-5"><b>{{$row->rodzajnik}}</b> {{$row->answer}}</td>
+    <td class="col-md-5"><b><span class="text-danger">{{$row->rodzajnik}}</span> {{$row->answer}}</b></td>
 </tr>
 
 

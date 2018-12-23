@@ -232,7 +232,7 @@ class memriseController extends Controller
     {
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;
-        $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', 0)->orderBy($param)->orderBy('counter')->get();
+        $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', 0)->orderBy($param, 'desc')->orderBy('counter')->get();
         $categories = Category::all();
         // $rows = Question::where('completed', 0)->get();
 

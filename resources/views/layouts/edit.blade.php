@@ -28,6 +28,13 @@
         <option value="{{$category->id}}" @if($category->id==$question->category_id) selected @endif>{{$category->name}}</option>
     @endforeach
 </select>
+<select name="rodzajnik" id="">
+    <option value=""> </option>
+    <option value="der" @if($question->rodzajnik=="der") selected @endif >der</option>
+    <option value="die" @if($question->rodzajnik=="die") selected @endif >die</option>
+    <option value="das" @if($question->rodzajnik=="das") selected @endif >das</option>
+</select>
+
 <button type="submit" class="btn btn-primary margintop">Zatwierdź</button>
 
 

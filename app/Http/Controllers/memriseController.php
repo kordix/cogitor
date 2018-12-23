@@ -161,9 +161,10 @@ class memriseController extends Controller
         $this->middleware('auth');
         $categories = Category::all();
         $question = Question::find($id);
+        $sentenceset = $question->zdanie;
 
         $currentlanguage = $this->currentlanguage;
-        $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id)->min('id');
+        $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('category_id', '=', $this->categorysetting)->where('id', '>', $id)->where('zdanie', '=', $sentenceset)->min('id');
         return view('layouts.edit', compact('question', 'next', 'currentlanguage', 'categories'));
     }
 
@@ -191,7 +192,8 @@ class memriseController extends Controller
             'answer' => request('answer'),
             'zdanie' => request('zdanie'),
             'language' => request('jezyk'),
-            'category_id' => request('category_id')
+            'category_id' => request('category_id'),
+            'rodzajnik' =>request('rodzajnik')
         ]);
         session()->flash('message', 'Dodano do bazy');
         return back();
@@ -204,13 +206,15 @@ class memriseController extends Controller
             'answer' =>request('answer'),
             'zdanie' =>request('zdanie'),
             'language' => request('jezyk'),
-            'category_id' => request('category_id')
+            'category_id' => request('category_id'),
+            'rodzajnik' => request('rodzajnik')
         ]);
 
         session()->flash('message', 'Zedytowano');
-
+        $sentenceset = $this->sentencesetting;
         $currentlanguage = $this->currentlanguage;
-        $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id)->min('id');
+        $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('category_id', '=', $this->categorysetting)->where('id', '>', $id)->where('zdanie', '=', $sentenceset)->min('id');
+        //$next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id)->min('id');
         return redirect()->route('edit', $next);
     }
 

@@ -54,7 +54,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ route('listenstart') }}">
-                        MemriseAppka
+                        CogitorAppka
                     </a>
                 </div>
 

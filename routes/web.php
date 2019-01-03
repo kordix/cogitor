@@ -24,6 +24,7 @@ Route::get('/', function () {
 Route::get('/testowe', function () {
     return view('test');
 });
+// Route::get('/api/show/{id}', 'apicontroller@showapi')->name('showapi');
 
 Auth::routes();
 Route::get('/createcategory', 'memriseController@createcategory')->name('createcategory');

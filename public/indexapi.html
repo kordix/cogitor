@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <div id="app">
+ {{dane.counter}}{{dane.question}}{{dane.answer}}{{next}}
+<button @click="nextt">Następny</button>
+</div>
+</head>
+
+<body>
+    <div id="app"><input type="text" v-bind:placeholder="dupa"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        let dupa = 'test';
+
+        new Vue({
+      el: '#app',
+      data:{
+        // next:769
+      },
+      methods:{
+        nextt:function(){
+            console.log('fdas');
+            this.next++;
+            axios.get('http://localhost:8000/api/show/'+this.next).then(response => (this.dane = response.data));
+
+            // this.mounted();
+        }
+      },
+      data () {
+        return {
+            dane:{},
+            next:769,
+          answer: null,
+          question: null,
+          counter:null,
+
+        }
+      },
+
+      mounted () {
+          axios.get('http://localhost:8000/api/show/'+this.next).then(response => (this.dane = response.data));
+        axios.get('http://localhost:8000/api/show/769').then(response => (this.answer = response.data.answer));
+        axios.get('http://localhost:8000/api/show/769').then(response => (this.question = response.data.question));
+
+    },
+    })
+        // App.getSome();
+        // setTimeout(function() {
+        //     App.dupaa();
+        //     console.log(App.dupa);
+        //
+        // }, 3000);
+
+        // console.log(App.dupa);
+
+
+        // let postac=[];
+        // let dupa;
+        //     fetch('https://swapi.co/api/people/1')
+        //       .then(function(response) {
+        //         return response.json();
+        //     }).then(function(resp){
+        //             console.log(resp.name);
+        //             dupa = resp.name;
+        //             postac.push(resp.name);
+        //             document.write(postac[0]);
+        //             console.log (dupa);
+        //
+        //     })
+        // console.log(postac[0]);
+    </script>
+</body>
+
+</html>

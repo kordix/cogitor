@@ -27,7 +27,6 @@
 
 <div class="col-md-12">
 <div class="col-md-1"><a href="{{ URL::to( 'show/' . $next ) }}"><button type="submit" class="btn btn-success" autofocus>Next</button></a></div>
-<div class="col-md-1"><a href="{{ route('edit',$id)}}"><button type="submit" class="btn btn-info">Edit</button></a></div>
 
 
 </div>
@@ -48,6 +47,7 @@
 </form>
 
 <div style="margin-top:20px" class="col-md-5"><a href="{{ URL::to( 'show/' . $previous ) }}"><button type="submit" class="btn-sm btn-info">Previous</button></a></div>
+<div class="col-md-1"><a href="{{ route('edit',$id)}}"><button type="submit" class="btn btn-info">Edit</button></a></div>
 
 </div>
 

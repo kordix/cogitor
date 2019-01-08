@@ -21,7 +21,7 @@
 </select>
 <select name="jezyk" id="">
     <option value="DE">DE</option>
-    <option value="SP">SP</option>
+    <option value="SP" @if($currentlanguage == 'SP') selected @endif>SP</option>
 </select>
 <select name="category_id" id="">
     @foreach($categories as $category)
@@ -30,9 +30,15 @@
 </select>
 <select name="rodzajnik" id="">
     <option value=""> </option>
-    <option value="der" @if($question->rodzajnik=="der") selected @endif >der</option>
-    <option value="die" @if($question->rodzajnik=="die") selected @endif >die</option>
-    <option value="das" @if($question->rodzajnik=="das") selected @endif >das</option>
+    @if($currentlanguage == 'DE')
+    <option value="der">der</option>
+    <option value="die">die</option>
+    <option value="das">das</option>
+    @endif
+    @if($currentlanguage == 'SP')
+        <option value="der">el</option>
+        <option value="die">la</option>
+    @ENDIF
 </select>
 
 <button type="submit" class="btn btn-primary margintop">Zatwierdź</button>

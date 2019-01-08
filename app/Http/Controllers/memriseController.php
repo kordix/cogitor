@@ -214,8 +214,10 @@ class memriseController extends Controller
         $sentenceset = $this->sentencesetting;
         $currentlanguage = $this->currentlanguage;
         $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('category_id', '=', $this->categorysetting)->where('id', '>', $id)->where('zdanie', '=', $sentenceset)->min('id');
+        
+
         //$next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id)->min('id');
-        return redirect()->route('edit', $next);
+        return redirect()->route('edit', $_SESSION['next']);
     }
 
     public function updatec($id, Request $request)

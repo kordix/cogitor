@@ -170,12 +170,12 @@ class memriseController extends Controller
 
     public function start()
     {
-        // $ile = Setting::find(1)->counterset;
-        if (isset($_SESSION['next'])) {
-            $next = $_SESSION['next'];
-        } else {
-            $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->min('id');
-        }
+        // if (isset($_SESSION['next'])) {
+        //     $next = $_SESSION['next'];
+        // } else {
+        // }
+        $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->min('id');
+
         return redirect()->route('show', ['id'=>$next])->with('autofocus', true);
     }
 

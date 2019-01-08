@@ -32,8 +32,6 @@ Route::get('/categories', 'memriseController@listcategories')->name('listc');
 
 Route::post('/storecategory', 'memriseController@storecategory')->name('storecategory');
 
-
-
 Route::get('/', 'memriseController@start');
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/show/{id}', 'memriseController@show')->name('show');
@@ -53,13 +51,6 @@ Route::get('/test', function () {
     dd(Setting::find(1)->counterset);
 });
 
-// Route::delete('/delete/{question}', function (Question $question) {
-//     $this->middleware('auth');
-//     $question->delete();
-//     session()->flash('message', 'usunięto fiszke');
-//     return redirect()->route('show', $_SESSION['next']);
-// })->name('delete');
-
 Route::delete('/delete/{question}', 'memriseController@delete')->name('delete');
 
 Route::delete('/deletec/{category}', function (Category $category) {
@@ -68,8 +59,6 @@ Route::delete('/deletec/{category}', function (Category $category) {
     session()->flash('message', 'usunięto kategorię');
     return redirect()->back();
 })->name('deletec');
-
-
 
 Route::delete('/listen/delete/{id}', 'ListenController@destroy')->name('listendelete');
 Route::get('/list', 'memriseController@list')->name('list');

@@ -11,6 +11,8 @@
 <input type="text" name="question" class="form-control" required>
 <label for="answer">Odpowiedź (po   @if($currentlanguage == 'SP') hiszpańsku @else niemiecku @endif ) </label>
 <input type="text" name="answer" class="form-control" required>
+<button type="submit" class="btn btn-primary pull-right" style="margin-top:10px">Dodaj!</button>
+
 <label for="zdanie">Zdanie:</label>
 <select name="zdanie" id="">
     <option value="0">Nie</option>
@@ -39,7 +41,6 @@
     @ENDIF
 
 </select>
-<button type="submit" class="btn btn-primary pull-right" style="margin-top:10px">Dodaj!</button>
 
 </form>
 

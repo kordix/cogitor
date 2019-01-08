@@ -26,14 +26,13 @@
 </div>
 
 <div class="col-md-12">
-<div class="col-md-5"><form action="{{ URL::to( 'show/' . $next ) }}"><a href="{{ URL::to( 'show/' . $next ) }}"><button type="submit" class="btn btn-success">Next</button></a></div>
+<div class="col-md-1"><a href="{{ URL::to( 'show/' . $next ) }}"><button type="submit" class="btn btn-success" autofocus>Next</button></a></div>
+<div class="col-md-1"><a href="{{ route('edit',$id)}}"><button type="submit" class="btn btn-info">Edit</button></a></div>
 
 
 </div>
     <div class="col-md-12">
 <br><br>
-<input type="text" style="position:relative;float:right" autofocus>
-</form>
 
 
 </div>

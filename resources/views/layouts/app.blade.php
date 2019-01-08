@@ -69,12 +69,12 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
+                        <li style="float:left">
                             {{-- <img src="{{asset('images/germany.png')}}" class="ikona" alt=""> --}}
                             <form action="{{route('setlanguage')}}" method="POST">{{csrf_field()}}{{method_field('patch')}}
                                 <input type="hidden" name="jezyk" value="DE"><button class="ikona ikonagerman" id="DE" type="submit" ></button></form>
                         </li>
-                        <li>
+                        <li style="float:left">
                             <form action="{{route('setlanguage')}}" method="POST">{{csrf_field()}}{{method_field('patch')}}
                                 <input type="hidden" name="jezyk" value="SP"><button class="ikona ikonaspain"id="SP" type="submit" ></button></form>
                         </li>

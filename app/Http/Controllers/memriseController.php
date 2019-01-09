@@ -24,6 +24,7 @@ class memriseController extends Controller
         $this->currentlanguage=Setting::find(1)->language;
         $this->sentencesetting=Setting::find(1)->sentences;
         $this->categorysetting=Setting::find(1)->category;
+        $this->answersetting=Setting::find(1)->answerset;
 
         session_start();
     }
@@ -62,6 +63,7 @@ class memriseController extends Controller
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;
         $categorysetting = $this->categorysetting;
+        $answersetting = $this->answersetting;
         $question = Question::find($id);
         $ile=$this->ile;
         $operator=$this->operator;
@@ -95,7 +97,7 @@ class memriseController extends Controller
             $previous = Question::where('counter', '<', $this->ile)->where('id', '<', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', $sentencesetting)->max('id');
         }
 
-        return view('layouts.show', compact('categorysetting', 'categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
+        return view('layouts.show', compact('answersetting', 'categorysetting', 'categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
     }
 
     public function random()
@@ -115,18 +117,15 @@ class memriseController extends Controller
         $sentencesetting = $this->sentencesetting;
 
         $question2 = Question::find($id);
-        // dd($question);
-        // dd($answer);
+        $answersetting=$this->answersetting;
+        $answer = ($this->answersetting==0) ? $answer : $question;
 
         if (mb_strtolower($answer) == mb_strtolower($useranswer)) {
-            //echo "Bardzo dobrze! <br> ";
             $check = 1;
             DB::table('questions')->whereId($id)->increment('counter');
         } else {
-            //echo "Bardzo źle <br> ";
             $check = 0;
         }
-        // $next = Question::where('id', '>', $id)->min('id');
 
         $ile = $this->ile;
         // $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id) ->min('id');
@@ -139,12 +138,7 @@ class memriseController extends Controller
         $question2 = Question::find($id);
         $counter = $question2->counter;
 
-        return view('layouts.check', compact('ile', 'next', 'check', 'question', 'useranswer', 'answer', 'id', 'question2', 'counter', 'previous', 'question2', 'currentlanguage'));
-
-        // echo 'pytanie: '.$question.'<br>';
-        // echo 'twoja odpowiedź: '.$useranswer.'<br>';
-        // echo 'poprawna odpowiedź: '.$answer.'<br>';
-        // echo 'id pytania:'.$id.'<br>';
+        return view('layouts.check', compact('answersetting', 'ile', 'next', 'check', 'question', 'useranswer', 'answer', 'id', 'question2', 'counter', 'previous', 'question2', 'currentlanguage'));
     }
 
     public function create()
@@ -214,7 +208,7 @@ class memriseController extends Controller
         $sentenceset = $this->sentencesetting;
         $currentlanguage = $this->currentlanguage;
         $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('category_id', '=', $this->categorysetting)->where('id', '>', $id)->where('zdanie', '=', $sentenceset)->min('id');
-        
+
 
         //$next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id)->min('id');
         return redirect()->route('edit', $_SESSION['next']);
@@ -258,6 +252,18 @@ class memriseController extends Controller
         Setting::find(1)->update([
             'operator'=>request('operator'),
             'counterset'=>request('counterinput')
+        ]);
+
+        session()->flash('message', 'Zmieniono counter filtrowanych pytań');
+        return $this->redyrekcja();
+    }
+
+    public function setanswerset(Request $request)
+    {
+        $this->middleware('auth');
+
+        Setting::find(1)->update([
+            'answerset'=>request('answerset')
         ]);
 
         session()->flash('message', 'Zmieniono counter filtrowanych pytań');
@@ -309,7 +315,7 @@ class memriseController extends Controller
             'language' => request('jezyk')
         ]);
 
-        session()->flash('message', 'Zedytowano');
+        session()->flash('message', "Ustawiono język");
 
         return back();
     }

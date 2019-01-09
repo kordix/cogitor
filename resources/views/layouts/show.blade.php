@@ -46,7 +46,7 @@
 <form action=" {{route('answer')}}" method="post" autofocus>
 {{csrf_field()}}
 <p>Kategoria: {{$categories->find($question->category_id)['name']}}</p>
-<label for="question">Przetłumacz:  {{$question->question}}</label><span style="float:right">id:{{$question->id}} counter:{{$question->counter}}</span>
+<label for="question">Przetłumacz: @if($answersetting=0){{$question->question}} @else {{$question->answer}} @endif</label><span style="float:right">id:{{$question->id}} counter:{{$question->counter}}</span>
 
 {{-- <label for="answer">Twoja odpowiedź</label> --}}
 <input class="form-control" type="text" name="useranswer" autocomplete="off" autofocus>
@@ -95,9 +95,17 @@
         <label for="counter">*Ustaw counter pytania</label>
         <input name="counter" type="number" style="width:50px">
     </form>
-
-
-
+</div>
+<div class="form-group col-md-12">
+    <form action="{{route('answerset')}}" method="POST">
+        {{csrf_field()}}
+        {{method_field('patch')}}
+        <label for="counter">*Tryb odpowiedzi</label>
+        <select name="answerset">
+            <option value="0">obcy->rodzimy</option>
+        <option value="1" @if($answersetting == 0) selected @endif>rodzimy->obcy</option>
+        </select>
+    </form>
 </div>
 
 </div>

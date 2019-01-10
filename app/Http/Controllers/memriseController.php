@@ -29,45 +29,45 @@ class memriseController extends Controller
         session_start();
     }
 
-    public function createcategory()
+    static public function redyrekcja()
     {
-        return view('layouts.createcategory');
-    }
+      if (!isset($_SESSION['next'])){
+        return redirect()->route('create');
+      } else {
+        $next = $_SESSION['next'];
+        return redirect()->route('create');
 
-    public function listcategories()
-    {
-        $categories = Category::all();
-        return view('layouts.listcategories', compact('categories'));
-    }
-
-    public function storecategory(Request $request)
-    {
-        Category::create([
-            'name' => request('name')
-        ]);
-        session()->flash('message', 'Dodano kategorię');
-        return back();
-    }
-
-    public function editc($id)
-    {
-        $category=Category::find($id);
-        return view('layouts.editcategory', compact('category'));
+        //return redirect()->route('show', ['id'=>$next]);
+        }
     }
 
     public function show($id)
     {
         global $next;
+
+
         $categories=Category::all();
-        // dd($this->currentlanguage);
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;
         $categorysetting = $this->categorysetting;
         $answersetting = $this->answersetting;
-        $question = Question::find($id);
         $ile=$this->ile;
         $operator=$this->operator;
 
+
+
+        if ('b'<'a'){
+          dd('fdasfasdff');
+        }
+        // for($i=0;$i=1;$i++){
+        //   $random[$i]=Question::all()->where('zdanie', '=', 0)->where('category_id', '=', $categorysetting)->random();
+        // }
+
+        $question = Question::find($id);
+        $random1=Question::all()->where('language', '=', $this->currentlanguage)->where('zdanie', '=', 0)->where('category_id', '<>', 6)->where('question', '>', $question->question);
+        //$random2=Question::all()->where('language', '=', $this->currentlanguage)->where('zdanie', '=', 0)->where('category_id', '<>', 6)->where('question', '>', $random1->question);
+
+       $random = $random1[1];
         if ($categorysetting<>0) {
             $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', $sentencesetting)->where('category_id', '=', $categorysetting)->min('id');
         } else {
@@ -97,7 +97,7 @@ class memriseController extends Controller
             $previous = Question::where('counter', '<', $this->ile)->where('id', '<', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', $sentencesetting)->max('id');
         }
 
-        return view('layouts.show', compact('answersetting', 'categorysetting', 'categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
+        return view('layouts.show', compact('random','answersetting', 'categorysetting', 'categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
     }
 
     public function random()
@@ -108,17 +108,15 @@ class memriseController extends Controller
 
     public function answer(Request $request)
     {
-        // session()->start();
+        $answersetting=$this->answersetting;
+        $currentlanguage = $this->currentlanguage;
+        $sentencesetting = $this->sentencesetting;
         $question = $request->input('question');
         $useranswer = $request->input('useranswer');
         $answer = $request->input('answer');
         $id = $request->input('id');
-        $currentlanguage = $this->currentlanguage;
-        $sentencesetting = $this->sentencesetting;
-
         $question2 = Question::find($id);
-        $answersetting=$this->answersetting;
-        $answer = ($this->answersetting==0) ? $answer : $question;
+        $answer = ($this->answersetting==1) ? $answer : $question;
 
         if (mb_strtolower($answer) == mb_strtolower($useranswer)) {
             $check = 1;
@@ -128,14 +126,8 @@ class memriseController extends Controller
         }
 
         $ile = $this->ile;
-        // $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id) ->min('id');
-
         $next = $_SESSION['next'];
-
         $previous = Question::where('counter', '<', $this->ile)->where('id', '<', $id) ->min('id');
-        // $next = Question::where('id', '>', $id) ->min('id');
-        // dd($next);
-        $question2 = Question::find($id);
         $counter = $question2->counter;
 
         return view('layouts.check', compact('answersetting', 'ile', 'next', 'check', 'question', 'useranswer', 'answer', 'id', 'question2', 'counter', 'previous', 'question2', 'currentlanguage'));
@@ -156,7 +148,6 @@ class memriseController extends Controller
         $categories = Category::all();
         $question = Question::find($id);
         $sentenceset = $question->zdanie;
-
         $currentlanguage = $this->currentlanguage;
         $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('category_id', '=', $this->categorysetting)->where('id', '>', $id)->where('zdanie', '=', $sentenceset)->min('id');
         return view('layouts.edit', compact('question', 'next', 'currentlanguage', 'categories'));
@@ -164,19 +155,9 @@ class memriseController extends Controller
 
     public function start()
     {
-        // if (isset($_SESSION['next'])) {
-        //     $next = $_SESSION['next'];
-        // } else {
-        // }
         $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->min('id');
 
         return redirect()->route('show', ['id'=>$next])->with('autofocus', true);
-    }
-
-    public function review()
-    {
-        $id = $request->input('id');
-        $next = Question::where('id', '>', $id) ->min('id');
     }
 
     public function store(Request $request)
@@ -208,21 +189,9 @@ class memriseController extends Controller
         $sentenceset = $this->sentencesetting;
         $currentlanguage = $this->currentlanguage;
         $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('category_id', '=', $this->categorysetting)->where('id', '>', $id)->where('zdanie', '=', $sentenceset)->min('id');
-
-
-        //$next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('id', '>', $id)->min('id');
         return redirect()->route('edit', $_SESSION['next']);
     }
 
-    public function updatec($id, Request $request)
-    {
-        Category::find($id)->update([
-            'name' =>request('name')
-        ]);
-
-        session()->flash('message', 'Zedytowano kategorię');
-        return back();
-    }
 
     public function list($param = 'id')
     {
@@ -230,8 +199,6 @@ class memriseController extends Controller
         $sentencesetting = $this->sentencesetting;
         $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', $this->sentencesetting)->orderBy($param, 'desc')->orderBy('counter')->get();
         $categories = Category::all();
-        // $rows = Question::where('completed', 0)->get();
-
 
         return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
     }
@@ -244,44 +211,6 @@ class memriseController extends Controller
         return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
     }
 
-
-    public function setcounter(Request $request)
-    {
-        $this->middleware('auth');
-
-        Setting::find(1)->update([
-            'operator'=>request('operator'),
-            'counterset'=>request('counterinput')
-        ]);
-
-        session()->flash('message', 'Zmieniono counter filtrowanych pytań');
-        return $this->redyrekcja();
-    }
-
-    public function setanswerset(Request $request)
-    {
-        $this->middleware('auth');
-
-        Setting::find(1)->update([
-            'answerset'=>request('answerset')
-        ]);
-
-        session()->flash('message', 'Zmieniono counter filtrowanych pytań');
-        return $this->redyrekcja();
-    }
-
-    public function setcounterquestion($id, Request $request)
-    {
-        $this->middleware('auth');
-
-        Question::find($id)->update([
-            'counter'=> request('counter')
-        ]);
-
-        $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id) ->min('id');
-        return redirect()->route('show', ['id'=>$next]);
-    }
-
     public function mamracje($id, Request $request)
     {
         $this->middleware('auth');
@@ -292,58 +221,7 @@ class memriseController extends Controller
 
         $next = $_SESSION['next'];
         return redirect()->route('show', ['id'=>$next]);
-        // $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id) ->min('id');
 
-        // $this->nextt($id);
-    }
-
-    public function redyrekcja()
-    {
-        $next = $_SESSION['next'];
-        return redirect()->route('show', ['id'=>$next]);
-    }
-
-    public function nextt($id)
-    {
-        $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id) ->min('id');
-        return redirect()->route('show', ['id'=>$next]);
-    }
-
-    public function setlanguage(Request $request)
-    {
-        Setting::find(1)->update([
-            'language' => request('jezyk')
-        ]);
-
-        session()->flash('message', "Ustawiono język");
-
-        return back();
-    }
-
-    public function setsentences(Request $request)
-    {
-        Setting::find(1)->update([
-            'sentences' => request('sentences')
-        ]);
-
-        session()->flash('message', 'Zedytowano filtrowanie zdań');
-
-        return back();
-    }
-
-    public function setcategory(Request $request)
-    {
-        Setting::find(1)->update([
-            'category' => request('category')
-        ]);
-        session()->flash('message', 'ustawiono aktualną kategorię');
-        return back();
-    }
-
-    public function listen()
-    {
-        $currentlanguage = $this->currentlanguage;
-        return view('layouts.listen', compact('currentlanguage'));
     }
 
     public function delete(Question $question)

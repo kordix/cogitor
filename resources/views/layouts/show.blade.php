@@ -7,6 +7,9 @@
 
 <div class="col-md-12">
 <div class="col-md-6"><h1>Witaj w appce do nauki języka</h1></div>
+<div class="col-md-12">
+  {{$random->answer}}
+</div>
 <div class="col-md-3">
     <h3>Counterset: {{$operator}} {{$ile}}</h3>
     <form action="{{route('setsentences')}}" method="POST">{{csrf_field()}}{{method_field('PATCH')}}
@@ -105,6 +108,7 @@
             <option value="0">obcy->rodzimy</option>
         <option value="1" @if($answersetting == 0) selected @endif>rodzimy->obcy</option>
         </select>
+        <button type="submit" class="btn btn-sm" name="button">ok</button>
     </form>
 </div>
 

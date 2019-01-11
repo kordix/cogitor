@@ -72,11 +72,11 @@
                         <li style="float:left">
                             {{-- <img src="{{asset('images/germany.png')}}" class="ikona" alt=""> --}}
                             <form action="{{route('setlanguage')}}" method="POST">{{csrf_field()}}{{method_field('patch')}}
-                                <input type="hidden" name="jezyk" value="DE"><button class="ikona ikonagerman" id="DE" type="submit" ></button></form>
+                                <input type="hidden" name="jezyk" value="DE"><button class="ikona ikonagerman @if($currentlanguage=="DE")ikona-active @endif" id="DE" type="submit" ></button></form>
                         </li>
                         <li style="float:left">
                             <form action="{{route('setlanguage')}}" method="POST">{{csrf_field()}}{{method_field('patch')}}
-                                <input type="hidden" name="jezyk" value="SP"><button class="ikona ikonaspain"id="SP" type="submit" ></button></form>
+                                <input type="hidden" name="jezyk" value="SP"><button class="ikona ikonaspain @if($currentlanguage=="SP")ikona-active @endif" id="SP" type="submit" ></button></form>
                         </li>
                         <li><a>
                             <form action="{{route('setcounter')}}" method="POST">
@@ -127,22 +127,22 @@
         </div>
         @yield('content')
     </div>
-
+{{-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script> --}}
     <!-- Scripts -->
     @yield('scripts')
     {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 
 
-    @guest @else
+    {{-- @guest @else
     <script>
     let ikony = document.getElementsByClassName('ikona');
     for(var i=0;ikony.length;i++){
         if(ikony[i].id == "{{$currentlanguage}}"){
             ikony[i].classList.add('ikona-active')
         }
-    }
+    } --}}
 
     </script>
-@endguest
+{{-- @endguest --}}
 </body>
 </html>

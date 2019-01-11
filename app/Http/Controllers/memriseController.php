@@ -29,15 +29,15 @@ class memriseController extends Controller
         session_start();
     }
 
-    static public function redyrekcja()
+    public static function redyrekcja()
     {
-      if (!isset($_SESSION['next'])){
-        return redirect()->route('create');
-      } else {
-        $next = $_SESSION['next'];
-        return redirect()->route('create');
+        if (!isset($_SESSION['next'])) {
+            return redirect()->route('create');
+        } else {
+            $next = $_SESSION['next'];
+            return redirect()->route('create');
 
-        //return redirect()->route('show', ['id'=>$next]);
+            //return redirect()->route('show', ['id'=>$next]);
         }
     }
 
@@ -54,20 +54,26 @@ class memriseController extends Controller
         $ile=$this->ile;
         $operator=$this->operator;
 
-
-
-        if ('b'<'a'){
-          dd('fdasfasdff');
+        if ('b'<'a') {
+            dd('fdasfasdff');
         }
         // for($i=0;$i=1;$i++){
         //   $random[$i]=Question::all()->where('zdanie', '=', 0)->where('category_id', '=', $categorysetting)->random();
         // }
 
         $question = Question::find($id);
-        $random1=Question::all()->where('language', '=', $this->currentlanguage)->where('zdanie', '=', 0)->where('category_id', '<>', 6)->where('question', '>', $question->question);
+        $random1=Question::where('language', '=', $this->currentlanguage)->where('zdanie', '=', 0)->where('category_id', '<>', 6)->where('answer', '>', $question->answer)->get()->sortBy('answer');
         //$random2=Question::all()->where('language', '=', $this->currentlanguage)->where('zdanie', '=', 0)->where('category_id', '<>', 6)->where('question', '>', $random1->question);
+        // dd($random1[1]);
+        // $random1->values()->all();
+        $randoms = $random1->slice(0, 4);
+        $randoms = $randoms->pluck('answer')->toArray();
+        array_push($randoms, $question->answer);
+        shuffle($randoms);
+        // dd($randoms);
 
-       $random = $random1[1];
+
+        // dd($randoms);
         if ($categorysetting<>0) {
             $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', $sentencesetting)->where('category_id', '=', $categorysetting)->min('id');
         } else {
@@ -97,7 +103,7 @@ class memriseController extends Controller
             $previous = Question::where('counter', '<', $this->ile)->where('id', '<', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', $sentencesetting)->max('id');
         }
 
-        return view('layouts.show', compact('random','answersetting', 'categorysetting', 'categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
+        return view('layouts.show', compact('randoms', 'answersetting', 'categorysetting', 'categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
     }
 
     public function random()
@@ -221,7 +227,6 @@ class memriseController extends Controller
 
         $next = $_SESSION['next'];
         return redirect()->route('show', ['id'=>$next]);
-
     }
 
     public function delete(Question $question)

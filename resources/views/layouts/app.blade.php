@@ -125,24 +125,16 @@
             <div class="col-md-5 alert alert-success">{{$flash}}</div>
         @endif
         </div>
+        <div class="container">
         @yield('content')
+        </div>
     </div>
-{{-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script> --}}
     <!-- Scripts -->
     @yield('scripts')
     {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 
 
-    {{-- @guest @else
-    <script>
-    let ikony = document.getElementsByClassName('ikona');
-    for(var i=0;ikony.length;i++){
-        if(ikony[i].id == "{{$currentlanguage}}"){
-            ikony[i].classList.add('ikona-active')
-        }
-    } --}}
 
     </script>
-{{-- @endguest --}}
 </body>
 </html>

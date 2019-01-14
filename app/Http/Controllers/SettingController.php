@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Setting;
+use App\Question;
+
 
 class SettingController extends Controller
 {
@@ -55,7 +57,6 @@ class SettingController extends Controller
       Setting::find(1)->update([
           'answerset'=>request('answerset')
 
-
       ]);
 
       session()->flash('message', 'Zmieniono tryb odpowiedzi');
@@ -69,9 +70,15 @@ class SettingController extends Controller
       Question::find($id)->update([
           'counter'=> request('counter')
       ]);
+      session()->flash('message', 'Ustawiono counter danego pytania');
+      $next = $_SESSION['next'];
+      // $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id) ->min('id');
+      if (isset($next)){
+      return redirect()->route('show', $next);
+    } else {
+      return redirect()->route('create');
 
-      $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id) ->min('id');
-      return redirect()->route('show', ['id'=>$next]);
+    }
   }
 
   public function setlanguage(Request $request)

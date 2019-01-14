@@ -7,6 +7,7 @@
         {{method_field('patch')}}
         <label for="counter">*Ustaw counter pytania</label>
         <input name="counter" type="number" style="width:50px">
+        <button type="submit" class="btn btn-sm" name="button">Ok</button>
     </form>
 </div>
 <div class="form-group col-md-12">

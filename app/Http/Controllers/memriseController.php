@@ -45,7 +45,6 @@ class memriseController extends Controller
     {
         global $next;
 
-
         $categories=Category::all();
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;
@@ -104,7 +103,7 @@ class memriseController extends Controller
         }
 
         if(!isset($previous)){
-
+          $previous = 1021;
         }
 
         return view('layouts.show', compact('randoms', 'answersetting', 'categorysetting', 'categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));

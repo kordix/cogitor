@@ -74,8 +74,10 @@ class SettingController extends Controller
       $next = $_SESSION['next'];
       // $next = Question::where('counter', '<', $this->ile)->where('id', '>', $id) ->min('id');
       if (isset($next)){
+       session()->flash('message', 'Zmieniono tryb odpowiedzi');
       return redirect()->route('show', $next);
     } else {
+      session()->flash('message', 'Zmieniono tryb odpowiedzi, nie znaleziono następnego pytania');
       return redirect()->route('create');
 
     }

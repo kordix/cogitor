@@ -6,7 +6,6 @@ use App\Setting;
 use App\Category;
 use App\Traits\ExampleCode;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +24,6 @@ Route::get('/escape', function () {
 
 Route::get('/testt', function () {
     App\Traits\ExampleCode::printThis();
-
 })->name('main');
 
 
@@ -74,6 +72,10 @@ Route::get('/listzdania/{param}', 'memriseController@listzdania')->name('listzda
 Route::patch('/setcounter', 'SettingController@setcounter')->name('setcounter');
 Route::patch('/setcounterquestion/{id}', 'SettingController@setcounterquestion')->name('counterquestion');
 Route::patch('/setanswerset', 'SettingController@setanswerset')->name('answerset');
+Route::get('/indexsettings', 'SettingController@index')->name('indexsettings');
+
+Route::patch('/updatesettings', 'SettingController@update')->name('updatesettings');
+
 
 Route::patch('/listen/setcounterquestion/{id}', 'ListenController@setcounterquestion')->name('listencounterquestion');
 

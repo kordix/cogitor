@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="col-md-6"><h1>Witaj w appce do nauki języka</h1></div>
+    <div class="col-md-6"><h1>Witaj w aplikacji do nauki języka</h1></div>
 
     @include('layouts.show.buttons')
     @include('layouts.show.toprow')

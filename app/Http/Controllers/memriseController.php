@@ -29,6 +29,13 @@ class memriseController extends Controller
         session_start();
     }
 
+    public function settings()
+    {
+        $settings = Setting::find(1);
+        dd($settings);
+        return view('settings', compact('settings'));
+    }
+
     public static function redyrekcja()
     {
         if (!isset($_SESSION['next'])) {
@@ -102,8 +109,8 @@ class memriseController extends Controller
             $previous = Question::where('counter', '<', $this->ile)->where('id', '<', $id)->where('language', '=', $this->currentlanguage)->where('zdanie', '=', $sentencesetting)->max('id');
         }
 
-        if(!isset($previous)){
-          $previous = 1021;
+        if (!isset($previous)) {
+            $previous = 1021;
         }
 
         return view('layouts.show', compact('randoms', 'answersetting', 'categorysetting', 'categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));

@@ -14,10 +14,11 @@
 
 
 <button class="btn btn-primary" style="margin-top:5px" id="apply" type="submit">Zatwierdź</button>
+<a target="_blank" class="pull-right" href="https://pl.bab.la/koniugacja/niemiecki/{{$question->answer}}">&nbsp;babla</a>  <a target="_blank" href="https://www.collinsdictionary.com/dictionary/german-english/{{$question->answer}}" class="pull-right">Collins</a>
 
 </div>
 
-</form>
+ </form>
 </div>
 </div>
 

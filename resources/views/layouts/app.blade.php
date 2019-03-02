@@ -65,11 +65,13 @@
                         <li><a class="navbar-brand" href="{{ url('/list') }}">Lista</a></li>
                         <li><a class="navbar-brand" href="{{ url('/listzdania') }}">Zdania</a></li>
                         <li><a class="navbar-brand" href="{{ url('/create') }}">Dodaj</a></li>
+                        <li><a class="navbar-brand" href="{{ route('indexsettings') }}">Ustawienia</a></li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                        <li style="float:left">
+                        <li style="float:left" >
                             {{-- <img src="{{asset('images/germany.png')}}" class="ikona" alt=""> --}}
                             <form action="{{route('setlanguage')}}" method="POST">{{csrf_field()}}{{method_field('patch')}}
                                 <input type="hidden" name="jezyk" value="DE"><button class="ikona ikonagerman @if($currentlanguage=="DE")ikona-active @endif" id="DE" type="submit" ></button></form>

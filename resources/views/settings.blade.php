@@ -7,6 +7,16 @@
 {{csrf_field()}}
 {{method_field('PATCH')}}
 <div class="form-group">
+    <label for="language">Język</label>
+
+    <select class="form-control" name="language">
+        <option value="DE">Niemiecki</option>
+        <option value="SP" @if($settings->language == "SP") selected @endif>Hiszpański</option>
+    </select>
+
+</div>
+
+<div class="form-group">
     <label for="counter">Counter</label>;
 <select name="operator" id=""><option value="<"> < </option><option value=">"> > </option></select>
 <input class="" style="width:50px" type="number" name="counterinput" value="{{$settings->counterset}}" placeholder="">

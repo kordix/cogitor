@@ -24,3 +24,11 @@
 </div>
 
 </div>
+
+
+<div class="form-group col-md-5">
+    <p>Wyszukaj:</p>
+    <input style="width:200px" type="text" class="form-control" name="" id="search" value="">
+    <button type="button" name="button" class="btn-secondary">Collins</button>
+    <button type="button" name="button" class="btn-success">Babla</button>
+</div>

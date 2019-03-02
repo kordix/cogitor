@@ -36,12 +36,13 @@ class SettingController extends Controller
     public function update(Request $request)
     {
         Setting::find(1)->update([
+
         'operator'=>request('operator', Setting::find(1)->operator),
         'counterset'=>request('counterinput', Setting::find(1)->counterset),
         'answerset'=>request('answerset', Setting::find(1)->answerset),
-        'language' => request('jezyk', Setting::find(1)->language),
         'sentences' => request('sentences', Setting::find(1)->sentences),
-        'category' => request('category', Setting::find(1)->category)
+        'category' => request('category', Setting::find(1)->category),
+        'language'=>request('language'),
     ]);
         session()->flash('message', 'zmieniono ustawienia');
         return back();

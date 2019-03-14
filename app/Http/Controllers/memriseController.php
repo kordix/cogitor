@@ -219,6 +219,16 @@ class memriseController extends Controller
         return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
     }
 
+    public function listcat($id){
+      $currentlanguage = $this->currentlanguage;
+      $sentencesetting = $this->sentencesetting;
+      $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', $this->sentencesetting)->where('category_id','=',$id)->orderBy('counter')->get();
+      $categories = Category::all();
+
+      return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
+
+    }
+
     public function listzdania($param = 'id')
     {
         $currentlanguage = $this->currentlanguage;

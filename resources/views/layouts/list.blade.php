@@ -2,20 +2,30 @@
 
 
 @section('content')
-<div class="container">
+<div class="container" style="margin:5px 0px 5px 0px">
     <div class="row">
-        <div class="col-md-1">
-            <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                <button class="btn btn-default" type="submit">Logout</button>
-                {{ csrf_field() }}
-            </form>
-        </div>
+
+  <div class="col-md-5">
 
 <a href="{{route('list','category_id')}}"><button class="btn btn-primary">Ułóż kategoriami</button></a>
 <a href="{{route('list','rodzajnik')}}"><button class="btn btn-primary">Ułóż rodzajnikami</button></a>
 <a href="{{route('list','id')}}"><button class="btn btn-primary">Id</button></a>
 <a href="{{route('list','answer')}}"><button class="btn btn-primary">Alfabetycznie</button></a>
+</div>
 
+<div class="col-md-2">
+
+<div class="dropdown" style="">
+   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filtruj kategorię
+   <span class="caret"></span></button>
+   <ul class="dropdown-menu">
+     @foreach($categories as $category)
+     <li><a href="{{route('listcat',$category->id)}}">{{$category->name}}</a></li>
+   @endforeach
+   </ul>
+ </div>
+</div>
+</div>
 
 
 

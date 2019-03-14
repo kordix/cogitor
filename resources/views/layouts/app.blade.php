@@ -14,6 +14,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <script src="{{asset('js/app.js')}}" type="text/javascript">
+
+    </script>
 
     <style>
         .ikonaspain{
@@ -112,7 +115,7 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
-                                    <li>test</li>
+                                
                                 </ul>
                             </li>
                         @endguest

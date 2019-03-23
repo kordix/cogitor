@@ -25,6 +25,10 @@
    </ul>
  </div>
 </div>
+<div class="col-md-2">
+    <button type="button" class="btn btn-focus" id="hideanswersbut" name="button">Schowaj odpowiedzi</button>
+</div>
+
 </div>
 
 
@@ -38,12 +42,45 @@
 
     <td class="col-md-1">{{$row->counter}}</td>
 
-    <td class="col-md-5"><b><span class="text-danger">{{$row->rodzajnik}}</span> {{$row->answer}}</b></td>
+    <td class="col-md-5 answercolumn"><b><span class="text-danger">{{$row->rodzajnik}}</span> {{$row->answer}}</b></td>
 </tr>
 
 
 
 @endforeach
 </table>
+
+<div class="dupa">
+
 </div>
+<div class="dupa">
+
+</div>
+</div>
+@endsection
+
+@section('scripts')
+    <script>
+
+var els = document.getElementsByClassName('answercolumn');
+document.getElementById('hideanswersbut').onclick = function(){
+    Array.prototype.forEach.call(els, function(el) {
+        // Do stuff here
+        el.classList.toggle("hide");
+    });
+
+
+};
+
+
+
+// .forEach(function(item,index){
+//     item.style.display='none';
+//     console.log('fsafds');
+//     console.log(item.style.display);
+// });
+
+
+</script>
+
 @endsection

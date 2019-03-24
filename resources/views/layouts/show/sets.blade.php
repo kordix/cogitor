@@ -1,4 +1,9 @@
 <div class="row"><div class="col-md-10">
+    @foreach(App\Question::find($question->id)->tags as $tag)
+    <a href="{{route('listtag',$tag->id)}}">   <button type="button" name="button" class="btn-sm btn-primary">{{$tag->name}}</button></a> 
+
+@endforeach
+
 
 </div>
 <div class="form-group col-md-12">

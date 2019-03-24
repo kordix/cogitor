@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Question;
 use App\Category;
 use App\Setting;
+use App\Tag;
+
 
 use DB;
 
@@ -162,11 +164,12 @@ class memriseController extends Controller
     {
         $this->middleware('auth');
         $categories = Category::all();
+        $tags = Tag::all();
         $question = Question::find($id);
         $sentenceset = $question->zdanie;
         $currentlanguage = $this->currentlanguage;
         $next = Question::where('counter', '<', $this->ile)->where('language', '=', $this->currentlanguage)->where('category_id', '=', $this->categorysetting)->where('id', '>', $id)->where('zdanie', '=', $sentenceset)->min('id');
-        return view('layouts.edit', compact('question', 'next', 'currentlanguage', 'categories'));
+        return view('layouts.edit', compact('question', 'next', 'currentlanguage', 'categories', 'tags'));
     }
 
     public function start()
@@ -226,6 +229,21 @@ class memriseController extends Controller
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;
         $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', $this->sentencesetting)->where('category_id', '=', $id)->orderBy('counter')->get();
+        $categories = Category::all();
+
+        return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
+    }
+
+    public function listtag($id)
+    {
+        $currentlanguage = $this->currentlanguage;
+        $sentencesetting = $this->sentencesetting;
+        //$rows= Question::with('tags')->has('tags', '=', 2)->get();
+        $tags=[$id];
+        $rows = Question::with('tags')->whereHas('tags', function ($q) use ($tags) {
+            $q->whereIn('id', $tags);
+        })->get();
+        //dd($rows);
         $categories = Category::all();
 
         return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));

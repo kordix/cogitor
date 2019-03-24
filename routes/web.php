@@ -66,6 +66,8 @@ Route::delete('/listen/delete/{id}', 'ListenController@destroy')->name('listende
 Route::get('/list', 'memriseController@list')->name('list');
 Route::get('/list/{param}', 'memriseController@list')->name('list');
 Route::get('/listcat/{param}', 'memriseController@listcat')->name('listcat');
+Route::get('/listtag/{param}', 'memriseController@listtag')->name('listtag');
+
 
 Route::get('/listenlist', 'ListenController@list')->name('listenlist');
 
@@ -91,3 +93,6 @@ Route::get('/listen/show/{id}', 'ListenController@show')->name('listenshow');
 Route::get('/listen/create', 'ListenController@create')->name('listencreate');
 Route::post('/listenstore', 'ListenController@store')->name('listenstore');
 Route::get('/listen/start', 'ListenController@start')->name('listenstart');
+
+Route::resource('tags', 'Tagcontroller');
+Route::resource('tagpivot', 'Tagpivotcontroller');

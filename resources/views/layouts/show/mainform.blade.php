@@ -1,4 +1,4 @@
-<div class="col-md-12"><div class="col-md-7">
+<div class="col-md-12"><div class="col-md-5">
 <div class="form-group">
 <form id="myForm" action="{{route('answer')}}" method="post" autofocus>
 {{csrf_field()}}

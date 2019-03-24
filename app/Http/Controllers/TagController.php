@@ -37,7 +37,6 @@ class TagController extends Controller
     public function store(Request $request)
     {
         $tag = Tag::create($request->all());
-        dd($tag->id);
         session()->flash('message', 'dodano tag');
         return back();
     }

@@ -94,5 +94,5 @@ Route::get('/listen/create', 'ListenController@create')->name('listencreate');
 Route::post('/listenstore', 'ListenController@store')->name('listenstore');
 Route::get('/listen/start', 'ListenController@start')->name('listenstart');
 
-Route::resource('tags', 'Tagcontroller');
-Route::resource('tagpivot', 'Tagpivotcontroller');
+Route::resource('tags', 'TagController');
+Route::resource('tagpivot', 'TagpivotController');

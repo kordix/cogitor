@@ -1,8 +1,9 @@
-<div class="col-md-12"><div class="col-md-5">
+<div class="col-md-12"><div class="col-md-7">
 <div class="form-group">
 <form id="myForm" action="{{route('answer')}}" method="post" autofocus>
 {{csrf_field()}}
 <p >Kategoria: <span style="font-weight:bold">{{$categories->find($question->category_id)['name']}}</p></span>
+<p>Link: <a href="{{$question->link}}">{{$question->link}}</a> </p>
 <label for="question" style="font-size:20px">Przetłumacz: @if($answersetting==0){{$question->answer}} @else {{$question->question}} @endif</label><span style="float:right">id:{{$question->id}} counter:{{$question->counter}}</span>
 
 {{-- <label for="answer">Twoja odpowiedź</label> --}}

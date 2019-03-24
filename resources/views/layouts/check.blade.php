@@ -6,8 +6,10 @@
 <div class="col-md-12">
     @if($check==0) <h3>Źle!</h3> @else <h3>Dobrze!</h3> @endif
 
+
 <h3>Pytanie: <span style="color:#333399">{{$question}}</span></h3>
 <h3>Poprawna odpowiedź: <span style="color:#009966">{{$answer}}</span></h3>
+@if($question2->link != "")<a target="_blank" href="{{$question2->link}}">Link</a>@endif
  <h3>Twoja odpowiedź:  @if($check==1) <span style="color:#339900">{{$useranswer}}</span>@else <span style="color:#CC0000">{{$useranswer}}</span>  </h3> @endif
 <br>
 <h3>Counter: {{$counter}}</h3>

@@ -14,6 +14,9 @@
 <input type="text" name="question" class="form-control" value="{{$question->question}}">
 <label for="answer">Odpowiedź (po niemiecku) </label>
 <input type="text" name="answer" class="form-control" value="{{$question->answer}}">
+<label for="link">Link (opcjonalne)</label>
+<input type="text" name="link" value="{{$question->link}}" class="form-control">
+
 <label for="zdanie">Zdanie</label>
 <select name="zdanie" id="">
     <option value="0" >Nie</option>

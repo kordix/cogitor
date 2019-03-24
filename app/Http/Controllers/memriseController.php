@@ -184,7 +184,8 @@ class memriseController extends Controller
             'zdanie' => request('zdanie'),
             'language' => request('jezyk'),
             'category_id' => request('category_id'),
-            'rodzajnik' =>request('rodzajnik')
+            'rodzajnik' =>request('rodzajnik'),
+            'link' =>request('link')
         ]);
         session()->flash('message', 'Dodano do bazy');
         return back();
@@ -198,7 +199,8 @@ class memriseController extends Controller
             'zdanie' =>request('zdanie'),
             'language' => request('jezyk'),
             'category_id' => request('category_id'),
-            'rodzajnik' => request('rodzajnik')
+            'rodzajnik' => request('rodzajnik'),
+            'link' =>request('link')
         ]);
 
         session()->flash('message', 'Zedytowano');
@@ -219,14 +221,14 @@ class memriseController extends Controller
         return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
     }
 
-    public function listcat($id){
-      $currentlanguage = $this->currentlanguage;
-      $sentencesetting = $this->sentencesetting;
-      $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', $this->sentencesetting)->where('category_id','=',$id)->orderBy('counter')->get();
-      $categories = Category::all();
+    public function listcat($id)
+    {
+        $currentlanguage = $this->currentlanguage;
+        $sentencesetting = $this->sentencesetting;
+        $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', $this->sentencesetting)->where('category_id', '=', $id)->orderBy('counter')->get();
+        $categories = Category::all();
 
-      return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
-
+        return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
     }
 
     public function listzdania($param = 'id')

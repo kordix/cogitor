@@ -50,13 +50,7 @@
 @endforeach
 </table>
 
-<div class="dupa">
 
-</div>
-<div class="dupa">
-
-</div>
-</div>
 @endsection
 
 @section('scripts')

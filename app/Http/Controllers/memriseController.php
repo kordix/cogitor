@@ -156,10 +156,12 @@ class memriseController extends Controller
     public function create()
     {
         $currentlanguage = $this->currentlanguage;
+        $currentcategory = $this->categorysetting;
+
         $sentencesetting = $this->sentencesetting;
         $categories = Category::all();
 
-        return view('layouts.create', compact('currentlanguage', 'sentencesetting', 'categories'));
+        return view('layouts.create', compact('currentlanguage', 'sentencesetting', 'categories', 'currentcategory'));
     }
 
     public function edit($id)

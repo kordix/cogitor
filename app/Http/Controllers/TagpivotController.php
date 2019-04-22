@@ -41,6 +41,7 @@ class TagpivotController extends Controller
         return back();
     }
 
+
     /**
      * Display the specified resource.
      *

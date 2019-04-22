@@ -13,6 +13,9 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript" src="{{asset('js/find.js')}}">
+
+    </script>
     <script>
     let wartosc;
     for(let i=0;i<5;i++){

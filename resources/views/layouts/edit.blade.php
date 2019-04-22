@@ -15,7 +15,7 @@
 <label for="answer">Odpowiedź (po niemiecku) </label>
 <input type="text" name="answer" class="form-control" value="{{$question->answer}}">
 <label for="link">Link (opcjonalne)</label>
-<input type="text" name="link" value="{{$question->link}}" class="form-control">
+<input type="text" name="link" value="@if($question->link=='')- @else{{$question->link}}@endif" class="form-control">
 
 
 

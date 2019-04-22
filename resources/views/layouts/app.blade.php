@@ -69,6 +69,8 @@
                         <li><a class="navbar-brand" href="{{ url('/listzdania') }}">Zdania</a></li>
                         <li><a class="navbar-brand" href="{{ url('/create') }}">Dodaj</a></li>
                         <li><a class="navbar-brand" href="{{ route('indexsettings') }}">Ustawienia</a></li>
+                        <li><a class="nav-item" href="{{ route('tags.create') }}">Stwórz tag</a></li>
+
 
                     </ul>
 
@@ -115,7 +117,7 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
-                                
+
                                 </ul>
                             </li>
                         @endguest

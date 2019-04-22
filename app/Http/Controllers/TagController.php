@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Tag;
+use App\Tagpivot;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
@@ -60,7 +61,6 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
     }
 
     /**
@@ -72,7 +72,6 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
     }
 
     /**
@@ -83,6 +82,12 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        //$tagspiv = Tagpivot::where('tag_id', '=', $tag->id);
+        //Tagpivot::where('question_id', '=', 624)->delete();
+        $tag->delete();
+        return back();
+        // foreach ($tagspiv as $tagp) {
+        //     Tagpivot::find($tagp->id)->delete();
+        // }
     }
 }

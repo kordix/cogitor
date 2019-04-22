@@ -25,6 +25,20 @@
    </ul>
  </div>
 </div>
+
+<div class="col-md-2">
+
+<div class="dropdown" style="">
+   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filtruj tag
+   <span class="caret"></span></button>
+   <ul class="dropdown-menu">
+     @foreach($tags as $tag)
+     <li><a href="{{route('listtag',$tag->id)}}">{{$tag->name}}</a></li>
+   @endforeach
+   </ul>
+ </div>
+</div>
+
 <div class="col-md-2">
     <button type="button" class="btn btn-focus" id="hideanswersbut" name="button">Schowaj odpowiedzi</button>
 </div>

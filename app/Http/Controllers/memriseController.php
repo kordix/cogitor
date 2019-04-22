@@ -115,7 +115,9 @@ class memriseController extends Controller
             $previous = 1021;
         }
 
-        return view('layouts.show', compact('randoms', 'answersetting', 'categorysetting', 'categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
+        $tags = Tag::all();
+
+        return view('layouts.show', compact('tags', 'randoms', 'answersetting', 'categorysetting', 'categories', 'question', 'ile', 'previous', 'operator', 'next', 'currentlanguage', 'sentencesetting'));
     }
 
     public function random()
@@ -220,8 +222,9 @@ class memriseController extends Controller
         $sentencesetting = $this->sentencesetting;
         $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', $this->sentencesetting)->orderBy($param, 'desc')->orderBy('counter')->get();
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
+        return view('layouts.list', compact('rows', 'currentlanguage', 'categories', 'tags'));
     }
 
     public function listcat($id)
@@ -230,23 +233,28 @@ class memriseController extends Controller
         $sentencesetting = $this->sentencesetting;
         $rows = Question::where('language', '=', $currentlanguage)->where('zdanie', '=', $this->sentencesetting)->where('category_id', '=', $id)->orderBy('counter')->get();
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
+
+
+        return view('layouts.list', compact('rows', 'currentlanguage', 'categories', 'tags'));
     }
 
     public function listtag($id)
     {
         $currentlanguage = $this->currentlanguage;
         $sentencesetting = $this->sentencesetting;
+        $tags = Tag::all();
+
         //$rows= Question::with('tags')->has('tags', '=', 2)->get();
-        $tags=[$id];
-        $rows = Question::with('tags')->whereHas('tags', function ($q) use ($tags) {
-            $q->whereIn('id', $tags);
-        })->get();
+        $tags2=[$id];
+        $rows = Question::with('tags')->whereHas('tags', function ($q) use ($tags2) {
+            $q->whereIn('id', $tags2);
+        })->where('language', '=', $currentlanguage)->get();
         //dd($rows);
         $categories = Category::all();
 
-        return view('layouts.list', compact('rows', 'currentlanguage', 'categories'));
+        return view('layouts.list', compact('rows', 'currentlanguage', 'categories', 'tags'));
     }
 
     public function listzdania($param = 'id')
